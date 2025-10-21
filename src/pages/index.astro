@@ -1,5 +1,10 @@
 ---
+import '../styles/global.css';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
 
+import { Image } from 'astro:assets';
+import gd from '../images/gd.jpg';
 ---
 
 <html lang="en">
@@ -8,9 +13,44 @@
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
+		<title>PGD Tolmin</title>
 	</head>
-	<body>
-		<h1>Astro</h1>
+	<body class="m-0 overflow-x-hidden">
+		<main class="p-0">
+			<section class="relative h-[100svh] overflow-hidden">
+				<!-- Navbar overlay -->
+				<div class="absolute inset-x-0 top-0 z-50">
+					<Navbar />
+				</div>
+
+				<!-- Full-bleed hero image -->
+				<Image
+					src={gd}
+					alt="GD"
+					class="block w-full h-full object-cover rounded-none shadow-none"
+					widths={[640, 768, 1024, 1280, 1536]}
+					sizes="100vw"
+				/>
+
+				<!-- Uniform overlay over the entire image -->
+				<div class="absolute inset-0 bg-black/30 z-30 pointer-events-none">
+				</div>
+
+				<!-- Headings overlay -->
+				<div class="absolute inset-0 z-40 flex items-center justify-center">
+					<div class="text-center px-4">
+						<h1
+							class="m-0 text-white text-4xl md:text-8xl font-bold drop-shadow-lg"
+						>
+							PGD Tolmin
+						</h1>
+						<h2 class="m-0 mt-3 text-white text-xl md:text-4xl drop-shadow">
+							Tukaj - za vas.
+						</h2>
+					</div>
+				</div>
+			</section>
+		</main>
+		<Footer />
 	</body>
 </html>

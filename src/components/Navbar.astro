@@ -1,0 +1,278 @@
+---
+import '../styles/global.css';
+
+type NavItem = {
+	name: string;
+	href: string;
+	active?: boolean;
+	children?: NavItem[];
+};
+
+const navItemsLeft: NavItem[] = [
+	{ name: 'Domov', href: '/', active: true },
+	{
+		name: 'Predstavitev',
+		href: '#predstavitev',
+		children: [
+			{ name: 'O društvu', href: '#drustvo' },
+			{ name: 'Vozila', href: '/vozila' },
+			{ name: 'Operativa', href: '#operativa' },
+		],
+	},
+	{ name: 'Aktualno', href: '/aktualno' },
+];
+
+const navItemsRight: NavItem[] = [
+	{ name: 'Storitve', href: '#storitve' },
+	{ name: 'Fotogalerija', href: '#fotogalerija' },
+	{ name: 'Kontakt', href: '/kontakt' },
+];
+
+const allItems = [...navItemsLeft, ...navItemsRight];
+---
+
+<nav class="bg-gray-200 text-black shadow-sm border-b border-gray-300">
+	<div class="max-w-7xl mx-auto px-4">
+		<!-- Mobile header -->
+		<div class="grid grid-cols-3 md:hidden items-center h-20">
+			<div></div>
+			<a href="/" aria-label="Domov" class="justify-self-center">
+				<img src="src/images/logo.png" alt="Logo" class="h-16 w-auto" />
+			</a>
+			<button
+				id="mobile-menu-button"
+				type="button"
+				class="justify-self-end inline-flex items-center justify-center p-2 rounded-md text-black hover:text-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-600"
+				aria-controls="mobile-menu"
+				aria-expanded="false"
+			>
+				<span class="sr-only">Open main menu</span>
+				<!-- Hamburger -->
+				<svg
+					id="icon-menu"
+					class="h-7 w-7"
+					viewBox="0 0 24 24"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="2"
+				>
+					<path
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						d="M4 6h16M4 12h16M4 18h16"></path>
+				</svg>
+				<!-- Close -->
+				<svg
+					id="icon-close"
+					class="h-7 w-7 hidden"
+					viewBox="0 0 24 24"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="2"
+				>
+					<path
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						d="M6 18L18 6M6 6l12 12"></path>
+				</svg>
+			</button>
+		</div>
+
+		<!-- Desktop navbar -->
+		<div
+			class="hidden md:flex items-center justify-between h-20 flex-nowrap gap-8"
+		>
+			<ul
+				class="flex flex-nowrap items-center space-x-8 text-lg font-medium whitespace-nowrap"
+			>
+				{
+					navItemsLeft.map((item) => (
+						<li class={item.children ? 'relative group' : ''}>
+							<a
+								href={item.href}
+								class="inline-flex items-center gap-1 text-black hover:text-red-600 transition-colors duration-200"
+							>
+								{item.name}
+								{item.children && (
+									<svg
+										class="h-4 w-4 transition-transform group-hover:rotate-180"
+										viewBox="0 0 24 24"
+										fill="none"
+										stroke="currentColor"
+										stroke-width="2"
+									>
+										<path
+											stroke-linecap="round"
+											stroke-linejoin="round"
+											d="M6 9l6 6 6-6"
+										/>
+									</svg>
+								)}
+							</a>
+
+							{item.children && (
+								<div class="absolute left-0 top-full pt-2 z-50 hidden group-hover:block">
+									<ul class="w-56 bg-white border border-gray-200 rounded-md shadow-lg py-2">
+										{item.children.map((child) => (
+											<li>
+												<a
+													href={child.href}
+													class="block px-4 py-2 text-sm text-black hover:text-red-600 hover:bg-gray-50"
+												>
+													{child.name}
+												</a>
+											</li>
+										))}
+									</ul>
+								</div>
+							)}
+						</li>
+					))
+				}
+			</ul>
+
+			<!-- Center logo -->
+			<a href="/" aria-label="Domov" class="flex-shrink-0 flex justify-center">
+				<img src="src/images/logo.png" alt="Logo" class="h-20 w-auto" />
+			</a>
+
+			<ul
+				class="flex flex-nowrap items-center space-x-8 text-lg font-medium whitespace-nowrap"
+			>
+				{
+					navItemsRight.map((item) => (
+						<li class={item.children ? 'relative group' : ''}>
+							<a
+								href={item.href}
+								class="inline-flex items-center gap-1 text-black hover:text-red-600 transition-colors duration-200"
+							>
+								{item.name}
+								{item.children && (
+									<svg
+										class="h-4 w-4 transition-transform group-hover:rotate-180"
+										viewBox="0 0 24 24"
+										fill="none"
+										stroke="currentColor"
+										stroke-width="2"
+									>
+										<path
+											stroke-linecap="round"
+											stroke-linejoin="round"
+											d="M6 9l6 6 6-6"
+										/>
+									</svg>
+								)}
+							</a>
+
+							{item.children && (
+								<div class="absolute left-0 top-full pt-2 z-50 hidden group-hover:block">
+									<ul class="w-56 bg-white border border-gray-200 rounded-md shadow-lg py-2">
+										{item.children.map((child) => (
+											<li>
+												<a
+													href={child.href}
+													class="block px-4 py-2 text-sm text-black hover:text-red-600 hover:bg-gray-50"
+												>
+													{child.name}
+												</a>
+											</li>
+										))}
+									</ul>
+								</div>
+							)}
+						</li>
+					))
+				}
+			</ul>
+		</div>
+
+		<!-- Mobile menu panel -->
+		<div
+			id="mobile-menu"
+			class="md:hidden border-t border-gray-300 pt-3 pb-6"
+			hidden
+		>
+			<ul class="space-y-2 text-xl font-medium">
+				{
+					allItems.map((item, idx) => (
+						<li>
+							{item.children ? (
+								<>
+									<button
+										type="button"
+										class="w-full flex items-center justify-between py-3 text-black hover:text-red-600"
+										aria-controls={`submenu-${idx}`}
+										aria-expanded="false"
+									>
+										<span>{item.name}</span>
+										<svg
+											class="h-5 w-5 transition-transform"
+											data-chevron={`submenu-${idx}`}
+											viewBox="0 0 24 24"
+											fill="none"
+											stroke="currentColor"
+											stroke-width="2"
+										>
+											<path
+												stroke-linecap="round"
+												stroke-linejoin="round"
+												d="M6 9l6 6 6-6"
+											/>
+										</svg>
+									</button>
+									<ul id={`submenu-${idx}`} class="hidden pl-4 space-y-1">
+										{item.children.map((child) => (
+											<li>
+												<a
+													href={child.href}
+													class="block py-2 text-base text-black hover:text-red-600"
+												>
+													{child.name}
+												</a>
+											</li>
+										))}
+									</ul>
+								</>
+							) : (
+								<a
+									href={item.href}
+									class="block w-full text-center py-3 text-black hover:text-red-600 transition-colors duration-200"
+								>
+									{item.name}
+								</a>
+							)}
+						</li>
+					))
+				}
+			</ul>
+		</div>
+	</div>
+
+	<script is:inline>
+		const btn = document.getElementById('mobile-menu-button');
+		const menu = document.getElementById('mobile-menu');
+		const iconMenu = document.getElementById('icon-menu');
+		const iconClose = document.getElementById('icon-close');
+
+		btn?.addEventListener('click', () => {
+			const isOpen = btn.getAttribute('aria-expanded') === 'true';
+			btn.setAttribute('aria-expanded', String(!isOpen));
+			menu?.toggleAttribute('hidden');
+			iconMenu?.classList.toggle('hidden');
+			iconClose?.classList.toggle('hidden');
+		});
+
+		// Mobile submenu toggles
+		menu?.querySelectorAll('button[aria-controls]').forEach((toggleBtn) => {
+			toggleBtn.addEventListener('click', () => {
+				const id = toggleBtn.getAttribute('aria-controls');
+				const panel = id ? document.getElementById(id) : null;
+				const expanded = toggleBtn.getAttribute('aria-expanded') === 'true';
+				toggleBtn.setAttribute('aria-expanded', String(!expanded));
+				panel?.classList.toggle('hidden');
+				const chevron = menu.querySelector(`svg[data-chevron="${id}"]`);
+				chevron?.classList.toggle('rotate-180');
+			});
+		});
+	</script>
+</nav>

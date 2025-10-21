@@ -1,0 +1,99 @@
+---
+import '../styles/global.css';
+import Navbar from '../components/Navbar.astro';
+---
+
+<html lang="sl" class="overflow-hidden h-screen">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<title>Aktualno | PGD Tolmin</title>
+	</head>
+	<body class="m-0 overflow-hidden h-screen flex flex-col bg-slate-400">
+		<div id="fb-root"></div>
+		<script
+			async
+			defer
+			crossorigin="anonymous"
+			src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v24.0&appId=1273225781224083"
+		></script>
+		<Navbar />
+		<div
+			class="bg-red-600 text-white text-center py-3 text-base md:text-xl font-semibold tracking-wide relative z-10"
+			id="emergency-banner"
+		>
+			V NUJNIH PRIMERIH POKLIČITE 112
+		</div>
+		<div class="flex-1 flex justify-center items-center overflow-hidden">
+			<div id="fb-outer" style="min-width: 500px;" class="py-10">
+				<div id="fb-wrap">
+					<div
+						id="fb-page"
+						class="fb-page"
+						data-href="https://www.facebook.com/pgd.tolmin"
+						data-tabs="timeline"
+						data-width="500"
+						data-height="900"
+						data-small-header="false"
+						data-adapt-container-width="true"
+						data-hide-cover="false"
+						data-show-facepile="true"
+					>
+						<blockquote
+							cite="https://www.facebook.com/pgd.tolmin"
+							class="fb-xfbml-parse-ignore"
+						>
+							<a href="https://www.facebook.com/pgd.tolmin">PGD Tolmin</a>
+						</blockquote>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script is:inline>
+			(() => {
+				const nav = document.querySelector('nav');
+				const banner = document.getElementById('emergency-banner');
+				const outer = document.getElementById('fb-outer');
+				const fbWrap = document.getElementById('fb-wrap');
+				const fbPage = document.getElementById('fb-page');
+
+				function availableHeight() {
+					const vh = window.innerHeight;
+					const navH = nav?.offsetHeight || 0;
+					const bannerH = banner?.offsetHeight || 0;
+					const cs = outer ? getComputedStyle(outer) : null;
+					const pTop = cs ? parseFloat(cs.paddingTop) : 0;
+					const pBottom = cs ? parseFloat(cs.paddingBottom) : 0;
+					return Math.max(
+						200,
+						Math.floor(vh - navH - bannerH - pTop - pBottom)
+					);
+				}
+
+				function renderFB() {
+					const h = availableHeight();
+					if (fbPage) fbPage.setAttribute('data-height', String(h));
+					if (window.FB?.XFBML?.parse) {
+						window.FB.XFBML.parse(fbWrap);
+					}
+				}
+
+				// SDK ready hook
+				window.fbAsyncInit = function () {
+					renderFB();
+				};
+
+				// Initial and debounced resize
+				document.addEventListener('DOMContentLoaded', renderFB);
+				let t;
+				window.addEventListener('resize', () => {
+					clearTimeout(t);
+					t = setTimeout(renderFB, 150);
+				});
+			})();
+		</script>
+	</body>
+</html>

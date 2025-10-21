@@ -1,0 +1,76 @@
+---
+import '../styles/global.css';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<html lang="sl">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<title>Kontakt | PGD Tolmin</title>
+	</head>
+	<body class="m-0 overflow-hidden h-screen flex flex-col bg-slate-400">
+		<Navbar />
+		<div
+			class="bg-red-600 text-white text-center py-3 text-base md:text-xl font-semibold tracking-wide relative z-10"
+		>
+			V NUJNIH PRIMERIH POKLIČITE 112
+		</div>
+
+		<main class="flex-1 flex items-center px-4 py-10">
+			<div class="max-w-7xl mx-auto w-full space-y-8">
+				<h1 class="m-0 text-3xl md:text-4xl font-bold text-gray-900 mb-2">
+					Kontakt podatki
+				</h1>
+
+				<div class="grid md:grid-cols-2 gap-8">
+					<section
+						aria-label="Kontakt podatki"
+						class="rounded-xl border border-gray-200 p-5 space-y-4 bg-gray-300"
+					>
+						<address class="not-italic text-gray-900">
+							<div class="font-medium">
+								Prostovoljno gasilsko društvo Tolmin
+							</div>
+							<div>Lavričeva ulica 1, Tolmin</div>
+							<div>5220 Tolmin</div>
+						</address>
+						<p class="m-0 text-gray-900">
+							Davčna številka: 19599056 <br />
+							Matična številka: 5154251000 <br />
+							<br />
+							E‑pošta:
+							<a
+								class="text-black hover:text-red-600 font-medium break-all"
+								href="mailto:pgdtolmin@gmail.com"
+							>
+								pgdtolmin@gmail.com
+							</a>
+						</p>
+					</section>
+
+					<!-- Google Maps embed -->
+					<section aria-label="Kje smo" class="space-y-3">
+						<h2 class="m-0 text-xl font-semibold text-gray-900">Kje smo</h2>
+						<div
+							class="rounded-xl overflow-hidden border border-gray-200 shadow-sm"
+						>
+							<div class="w-full aspect-square">
+								<iframe
+									class="w-full h-full border-0"
+									loading="lazy"
+									referrerpolicy="no-referrer-when-downgrade"
+									allowfullscreen
+									src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2786.8827935636844!2d13.73009177639081!3d46.1839419710849!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x477a55c8c82b7567%3A0x5e6ae28e87a7e57f!2sLavri%C4%8Deva%20ulica%201%2C%205220%20Tolmin!5e1!3m2!1ssl!2ssi!4v1729543765782!5m2!1ssl!2ssi"
+								></iframe>
+							</div>
+						</div>
+					</section>
+				</div>
+			</div>
+		</main>
+	</body>
+</html>
