@@ -2,6 +2,9 @@
 import '../styles/global.css';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
+
+import { Image } from 'astro:assets';
+import sos112 from '../images/sos112.png';
 ---
 
 <html lang="sl">
@@ -12,7 +15,7 @@ import Footer from '../components/Footer.astro';
 		<meta name="generator" content={Astro.generator} />
 		<title>Kontakt | PGD Tolmin</title>
 	</head>
-	<body class="m-0 overflow-hidden h-screen flex flex-col bg-slate-400">
+	<body class="m-0 h-screen flex flex-col bg-slate-400">
 		<Navbar />
 		<div
 			class="bg-red-600 text-white text-center py-3 text-base md:text-xl font-semibold tracking-wide relative z-10"
@@ -20,7 +23,7 @@ import Footer from '../components/Footer.astro';
 			V NUJNIH PRIMERIH POKLIČITE 112
 		</div>
 
-		<main class="flex-1 flex items-center px-4 py-10">
+		<main class="flex-1 overflow-y-auto px-4 py-10">
 			<div class="max-w-7xl mx-auto w-full space-y-8">
 				<h1 class="m-0 text-3xl md:text-4xl font-bold text-gray-900 mb-2">
 					Kontakt podatki
@@ -50,6 +53,14 @@ import Footer from '../components/Footer.astro';
 								pgdtolmin@gmail.com
 							</a>
 						</p>
+
+						<a
+							href="https://www.sos112.si/info/klic-v-sili"
+							target="_blank"
+							rel="noopener noreferrer"
+						>
+							<Image src={sos112} alt="SOS 112" />
+						</a>
 					</section>
 
 					<!-- Google Maps embed -->
