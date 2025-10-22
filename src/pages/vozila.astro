@@ -1,74 +1,48 @@
 ---
-import '../styles/global.css';
-import Navbar from '../components/Navbar.astro';
+import Layout from '../layouts/Layout.astro';
 import { Image } from 'astro:assets';
-
-// Replace with your actual image path
 import gvc1 from '../images/vozila/gvc-1.jpg';
 import ac2470 from '../images/vozila/ac-2470.jpg';
 ---
 
-<html lang="sl">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Vozila | PGD Tolmin</title>
-	</head>
-	<body class="bg-slate-400">
-		<Navbar />
+<Layout title="Vozila | PGD Tolmin">
+	<div class="px-4 py-10">
+		<div class="max-w-7xl mx-auto">
+			<h1 class="m-0 text-3xl md:text-4xl font-bold text-gray-900">Vozila</h1>
 
-		<main class="px-4 py-10">
-			<div class="max-w-7xl mx-auto">
-				<h1 class="m-0 text-3xl md:text-4xl font-bold text-gray-900">Vozila</h1>
+			<section class="mt-8 grid gap-8 md:grid-cols-2 items-start">
+				<div>
+					<Image
+						src={gvc1}
+						alt="GVC-1"
+						class="w-full h-auto rounded-lg shadow"
+						widths={[640, 768, 1024, 1280]}
+						sizes="(min-width: 768px) 50vw, 100vw"
+					/>
+				</div>
 
-				<section class="mt-8 grid gap-8 md:grid-cols-2 items-start">
-					<div>
-						<Image
-							src={gvc1}
-							alt="Vozni park PGD Tolmin"
-							class="w-full h-auto rounded-lg shadow"
-							widths={[640, 768, 1024, 1280]}
-							sizes="(min-width: 768px) 50vw, 100vw"
-						/>
-					</div>
+				<div class="prose max-w-none">
+					<h2>GVC-1</h2>
+					<p>Opis vozila GVC-1, oprema, tehnični podatki...</p>
+				</div>
+			</section>
 
-					<div class="prose max-w-none">
-						<p>
-							Tukaj opišite naša vozila, njihovo opremo in namen uporabe.
-							Dodajte tehnične podatke, posebnosti in leto izdelave.
-						</p>
-						<p>
-							Lahko vključite tudi informacije o vzdrževanju, pripravljenosti
-							ter namembnosti posameznih vozil za različne intervencije.
-						</p>
-					</div>
-				</section>
+			<section class="mt-12 grid gap-8 md:grid-cols-2 items-start">
+				<div>
+					<Image
+						src={ac2470}
+						alt="AC-2470"
+						class="w-full h-auto rounded-lg shadow"
+						widths={[640, 768, 1024, 1280]}
+						sizes="(min-width: 768px) 50vw, 100vw"
+					/>
+				</div>
 
-				<section class="mt-8 grid gap-8 md:grid-cols-2 items-start">
-					<div>
-						<Image
-							src={ac2470}
-							alt="Vozni park PGD Tolmin"
-							class="w-full h-auto rounded-lg shadow"
-							widths={[640, 768, 1024, 1280]}
-							sizes="(min-width: 768px) 50vw, 100vw"
-						/>
-					</div>
-
-					<div class="prose max-w-none">
-						<p>
-							Tukaj opišite naša vozila, njihovo opremo in namen uporabe.
-							Dodajte tehnične podatke, posebnosti in leto izdelave.
-						</p>
-						<p>
-							Lahko vključite tudi informacije o vzdrževanju, pripravljenosti
-							ter namembnosti posameznih vozil za različne intervencije.
-						</p>
-					</div>
-				</section>
-			</div>
-		</main>
-	</body>
-</html>
+				<div class="prose max-w-none">
+					<h2>AC-24/70</h2>
+					<p>Opis vozila AC-24/70, oprema, tehnični podatki...</p>
+				</div>
+			</section>
+		</div>
+	</div>
+</Layout>

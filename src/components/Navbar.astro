@@ -14,26 +14,30 @@ const navItemsLeft: NavItem[] = [
 	{ name: 'Domov', href: '/', active: true },
 	{
 		name: 'Predstavitev',
-		href: '#predstavitev',
+		href: '',
 		children: [
-			{ name: 'O društvu', href: '#drustvo' },
+			{ name: 'O društvu', href: '/drustvo' },
 			{ name: 'Vozila', href: '/vozila' },
-			{ name: 'Operativa', href: '#operativa' },
+			{ name: 'Operativa', href: '/operativa' },
+			{ name: 'Postani gasilec!', href: '/postani-gasilec' },
 		],
 	},
 	{ name: 'Aktualno', href: '/aktualno' },
 ];
 
 const navItemsRight: NavItem[] = [
-	{ name: 'Storitve', href: '#storitve' },
-	{ name: 'Fotogalerija', href: '#fotogalerija' },
+	{ name: 'Storitve', href: '/storitve' },
+	{ name: 'Fotogalerija', href: '/fotogalerija' },
 	{ name: 'Kontakt', href: '/kontakt' },
 ];
 
 const allItems = [...navItemsLeft, ...navItemsRight];
 ---
 
-<nav class="bg-gray-200 text-black shadow-sm border-b border-gray-300">
+<nav
+	id="navbar"
+	class="bg-gray-200 text-black shadow-sm border-b border-gray-300 fixed top-0 left-0 right-0 z-50 transition-transform duration-300"
+>
 	<div class="max-w-7xl mx-auto px-4">
 		<!-- Mobile header -->
 		<div class="grid grid-cols-3 md:hidden items-center h-20">
@@ -251,6 +255,28 @@ const allItems = [...navItemsLeft, ...navItemsRight];
 	</div>
 
 	<script is:inline>
+		// Scroll behavior
+		let lastScroll = 0;
+		const navbar = document.getElementById('navbar');
+
+		window.addEventListener('scroll', () => {
+			const currentScroll = window.pageYOffset;
+
+			if (currentScroll <= 0) {
+				// At the top
+				navbar?.classList.remove('-translate-y-full');
+			} else if (currentScroll > lastScroll && currentScroll > 100) {
+				// Scrolling down & past threshold
+				navbar?.classList.add('-translate-y-full');
+			} else if (currentScroll < lastScroll) {
+				// Scrolling up
+				navbar?.classList.remove('-translate-y-full');
+			}
+
+			lastScroll = currentScroll;
+		});
+
+		// Mobile menu toggle
 		const btn = document.getElementById('mobile-menu-button');
 		const menu = document.getElementById('mobile-menu');
 		const iconMenu = document.getElementById('icon-menu');
