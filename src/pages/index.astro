@@ -1,6 +1,5 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Footer from '../components/Footer.astro';
 import { Image } from 'astro:assets';
 import gd from '../images/gd.jpg';
 import qrCode from '../images/qr-code.png';
@@ -9,7 +8,7 @@ import qrCode from '../images/qr-code.png';
 <Layout
 	title="PGD Tolmin"
 	fullBleed={true}
-	hideFooter={true}
+	hideFooter={false}
 	bodyClass=""
 	viewportFit={true}
 >
@@ -27,7 +26,9 @@ import qrCode from '../images/qr-code.png';
 		<div class="absolute inset-0 bg-black/30 z-30 pointer-events-none"></div>
 
 		<!-- Headings overlay -->
-		<div class="absolute inset-0 z-40 flex items-center justify-center">
+		<div
+			class="absolute inset-0 z-40 flex items-center justify-center mb-24 sm:mb-0"
+		>
 			<div class="text-center px-4">
 				<h1
 					class="m-0 text-white text-6xl md:text-8xl font-bold drop-shadow-lg"
@@ -107,8 +108,6 @@ import qrCode from '../images/qr-code.png';
 			</div>
 		</div>
 	</section>
-
-	<Footer />
 
 	<script>
 		document
