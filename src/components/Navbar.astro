@@ -5,7 +5,7 @@ import logo from '../images/logo.png';
 
 type NavItem = {
 	name: string;
-	href: string;
+	href?: string;
 	active?: boolean;
 	children?: NavItem[];
 };
@@ -14,20 +14,18 @@ const navItemsLeft: NavItem[] = [
 	{ name: 'Domov', href: '/', active: true },
 	{
 		name: 'Predstavitev',
-		href: '',
 		children: [
 			{ name: 'O društvu', href: '/drustvo' },
 			{ name: 'Vozila', href: '/vozila' },
 			{ name: 'Operativa', href: '/operativa' },
-			{ name: 'Postani gasilec!', href: '/postani-gasilec' },
 		],
 	},
-	{ name: 'Aktualno', href: '/aktualno' },
+	{ name: 'Postani gasilec', href: '/postani-gasilec' },
 ];
 
 const navItemsRight: NavItem[] = [
+	{ name: 'Aktualno', href: '/aktualno' },
 	{ name: 'Storitve', href: '/storitve' },
-	{ name: 'Fotogalerija', href: '/fotogalerija' },
 	{ name: 'Kontakt', href: '/kontakt' },
 ];
 
@@ -94,12 +92,9 @@ const allItems = [...navItemsLeft, ...navItemsRight];
 				{
 					navItemsLeft.map((item) => (
 						<li class={item.children ? 'relative group' : ''}>
-							<a
-								href={item.href}
-								class="inline-flex items-center gap-1 text-black hover:text-red-600 transition-colors duration-200"
-							>
-								{item.name}
-								{item.children && (
+							{item.children ? (
+								<span class="inline-flex items-center gap-1 text-black hover:text-red-600 transition-colors duration-200 cursor-default">
+									{item.name}
 									<svg
 										class="h-4 w-4 transition-transform group-hover:rotate-180"
 										viewBox="0 0 24 24"
@@ -113,11 +108,18 @@ const allItems = [...navItemsLeft, ...navItemsRight];
 											d="M6 9l6 6 6-6"
 										/>
 									</svg>
-								)}
-							</a>
+								</span>
+							) : (
+								<a
+									href={item.href}
+									class="inline-flex items-center gap-1 text-black hover:text-red-600 transition-colors duration-200"
+								>
+									{item.name}
+								</a>
+							)}
 
 							{item.children && (
-								<div class="absolute left-0 top-full pt-2 z-50 hidden group-hover:block">
+								<div class="absolute left-0 top-full pt-2 z-50 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 ease-out transform translate-y-2 group-hover:translate-y-0">
 									<ul class="w-56 bg-white border border-gray-200 rounded-md shadow-lg py-2">
 										{item.children.map((child) => (
 											<li>
@@ -148,12 +150,9 @@ const allItems = [...navItemsLeft, ...navItemsRight];
 				{
 					navItemsRight.map((item) => (
 						<li class={item.children ? 'relative group' : ''}>
-							<a
-								href={item.href}
-								class="inline-flex items-center gap-1 text-black hover:text-red-600 transition-colors duration-200"
-							>
-								{item.name}
-								{item.children && (
+							{item.children ? (
+								<span class="inline-flex items-center gap-1 text-black hover:text-red-600 transition-colors duration-200 cursor-default">
+									{item.name}
 									<svg
 										class="h-4 w-4 transition-transform group-hover:rotate-180"
 										viewBox="0 0 24 24"
@@ -167,11 +166,18 @@ const allItems = [...navItemsLeft, ...navItemsRight];
 											d="M6 9l6 6 6-6"
 										/>
 									</svg>
-								)}
-							</a>
+								</span>
+							) : (
+								<a
+									href={item.href}
+									class="inline-flex items-center gap-1 text-black hover:text-red-600 transition-colors duration-200"
+								>
+									{item.name}
+								</a>
+							)}
 
 							{item.children && (
-								<div class="absolute left-0 top-full pt-2 z-50 hidden group-hover:block">
+								<div class="absolute left-0 top-full pt-2 z-50 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 ease-out transform translate-y-2 group-hover:translate-y-0">
 									<ul class="w-56 bg-white border border-gray-200 rounded-md shadow-lg py-2">
 										{item.children.map((child) => (
 											<li>

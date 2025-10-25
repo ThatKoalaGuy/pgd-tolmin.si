@@ -5,6 +5,7 @@ import Footer from '../components/Footer.astro';
 
 import { Image } from 'astro:assets';
 import gd from '../images/gd.jpg';
+import qrCode from '../images/qr-code.png';
 ---
 
 <html lang="en">
@@ -49,8 +50,87 @@ import gd from '../images/gd.jpg';
 						</h2>
 					</div>
 				</div>
+
+				<!-- QR Code Blob - Bottom Left -->
+				<div class="absolute bottom-8 left-8 z-40 mb-5">
+					<div class="relative w-40 md:w-65 group">
+						<!-- Blob background -->
+						<div
+							class="absolute inset-0 bg-red-600 rounded-full blur-2xl opacity-60 scale-110"
+						>
+						</div>
+
+						<!-- QR Code container -->
+						<div
+							class="relative bg-white/95 backdrop-blur-sm rounded-3xl p-4 shadow-2xl"
+						>
+							<p
+								class="text-center text-xs md:text-sm font-medium text-gray-700 mb-2"
+							>
+								Podprite nas in namenite 1% dohodnine PGD Tolmin! <br />
+								Poiščite nas pod davčno številko
+								<b
+									id="copy-tax-number"
+									class="text-xl hover:text-red-600 cursor-pointer transition-colors inline-flex items-center gap-1"
+									title="Klikni za kopiranje"
+								>
+									19599056
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										class="h-4 w-4"
+										viewBox="0 0 24 24"
+										fill="none"
+										stroke="currentColor"
+										stroke-width="2"
+									>
+										<rect x="9" y="9" width="13" height="13" rx="2" ry="2"
+										></rect>
+										<path
+											d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+										></path>
+									</svg>
+								</b>
+								<span
+									id="copy-feedback"
+									class="text-xs text-green-600 ml-1 hidden"
+								>
+									✓ Kopirano!
+								</span>
+							</p>
+							<a
+								href="https://edavki.durs.si/edavkiportal/OpenPortal/CommonPages/Opdynp/PageD.aspx?category=namenitev_dela_dohodnine_fo"
+								target="_blank"
+								class="block transition-transform hover:scale-105"
+							>
+								<Image src={qrCode} alt="QR Code" class="w-full h-auto" />
+								<p
+									class="text-center text-s text-gray-600 mt-2 group-hover:text-red-600 transition-colors"
+								>
+									👆 Klikni za oddajo
+								</p>
+							</a>
+						</div>
+					</div>
+				</div>
 			</section>
 		</main>
 		<Footer />
+
+		<script>
+			document
+				.getElementById('copy-tax-number')
+				?.addEventListener('click', async () => {
+					try {
+						await navigator.clipboard.writeText('19599056');
+						const feedback = document.getElementById('copy-feedback');
+						feedback?.classList.remove('hidden');
+						setTimeout(() => {
+							feedback?.classList.add('hidden');
+						}, 2000);
+					} catch (err) {
+						console.error('Failed to copy:', err);
+					}
+				});
+		</script>
 	</body>
 </html>
