@@ -201,66 +201,67 @@ const allItems = [...navItemsLeft, ...navItemsRight];
 		<!-- Mobile menu panel -->
 		<div
 			id="mobile-menu"
-			class="md:hidden border-t border-gray-300 pt-3 pb-6"
-			hidden
+			class="md:hidden border-t border-transparent overflow-hidden max-h-0 opacity-0 -translate-y-2 transition-all duration-300 ease-out pointer-events-none"
 		>
-			<ul class="space-y-2 text-xl font-medium">
-				{
-					allItems.map((item, idx) => (
-						<li>
-							{item.children ? (
-								<>
-									<button
-										type="button"
-										class="w-full flex items-center justify-between py-3 text-black hover:text-red-600 text-left"
-										aria-controls={`submenu-${idx}`}
-										aria-expanded="false"
-									>
-										<span>{item.name}</span>
-										<svg
-											class="h-5 w-5 transition-transform"
-											data-chevron={`submenu-${idx}`}
-											viewBox="0 0 24 24"
-											fill="none"
-											stroke="currentColor"
-											stroke-width="2"
+			<div class="mobile-menu-inner pt-3 pb-6">
+				<ul class="space-y-2 text-xl font-medium">
+					{
+						allItems.map((item, idx) => (
+							<li>
+								{item.children ? (
+									<>
+										<button
+											type="button"
+											class="w-full flex items-center justify-between py-3 text-black hover:text-red-600 text-left"
+											aria-controls={`submenu-${idx}`}
+											aria-expanded="false"
 										>
-											<path
-												stroke-linecap="round"
-												stroke-linejoin="round"
-												d="M6 9l6 6 6-6"
-											/>
-										</svg>
-									</button>
-									<ul
-										id={`submenu-${idx}`}
-										class="pl-4 space-y-1 overflow-hidden opacity-0 transform -translate-y-1 transition-all duration-300 ease-out"
-										style="max-height: 0px;"
+											<span>{item.name}</span>
+											<svg
+												class="h-5 w-5 transition-transform"
+												data-chevron={`submenu-${idx}`}
+												viewBox="0 0 24 24"
+												fill="none"
+												stroke="currentColor"
+												stroke-width="2"
+											>
+												<path
+													stroke-linecap="round"
+													stroke-linejoin="round"
+													d="M6 9l6 6 6-6"
+												/>
+											</svg>
+										</button>
+										<ul
+											id={`submenu-${idx}`}
+											class="pl-4 space-y-1 overflow-hidden opacity-0 transform -translate-y-1 transition-all duration-300 ease-out"
+											style="max-height: 0px;"
+										>
+											{item.children.map((child) => (
+												<li>
+													<a
+														href={child.href}
+														class="block py-2 text-base text-black hover:text-red-600 text-left"
+													>
+														{child.name}
+													</a>
+												</li>
+											))}
+										</ul>
+									</>
+								) : (
+									<a
+										href={item.href}
+										class="block w-full py-3 text-black hover:text-red-600 transition-colors duration-200 text-left"
 									>
-										{item.children.map((child) => (
-											<li>
-												<a
-													href={child.href}
-													class="block py-2 text-base text-black hover:text-red-600 text-left"
-												>
-													{child.name}
-												</a>
-											</li>
-										))}
-									</ul>
-								</>
-							) : (
-								<a
-									href={item.href}
-									class="block w-full py-3 text-black hover:text-red-600 transition-colors duration-200 text-left"
-								>
-									{item.name}
-								</a>
-							)}
-						</li>
-					))
-				}
-			</ul>
+										{item.name}
+									</a>
+								)}
+							</li>
+						))
+					}
+				</ul>
+			</div>
 		</div>
 	</div>
 
@@ -295,7 +296,42 @@ const allItems = [...navItemsLeft, ...navItemsRight];
 		btn?.addEventListener('click', () => {
 			const isOpen = btn.getAttribute('aria-expanded') === 'true';
 			btn.setAttribute('aria-expanded', String(!isOpen));
-			menu?.toggleAttribute('hidden');
+			if (menu) {
+				const inner = menu.firstElementChild;
+				if (!isOpen) {
+					// Open with animation
+					menu.classList.remove(
+						'opacity-0',
+						'-translate-y-2',
+						'pointer-events-none',
+						'border-transparent'
+					);
+					menu.classList.add(
+						'opacity-100',
+						'translate-y-0',
+						'pointer-events-auto',
+						'border-gray-300'
+					);
+					if (inner) {
+						menu.style.maxHeight = inner.scrollHeight + 'px';
+					}
+				} else {
+					// Close with animation
+					menu.style.maxHeight = '0px';
+					menu.classList.remove(
+						'opacity-100',
+						'translate-y-0',
+						'pointer-events-auto',
+						'border-gray-300'
+					);
+					menu.classList.add(
+						'opacity-0',
+						'-translate-y-2',
+						'pointer-events-none',
+						'border-transparent'
+					);
+				}
+			}
 			iconMenu?.classList.toggle('hidden');
 			iconClose?.classList.toggle('hidden');
 		});
@@ -319,6 +355,14 @@ const allItems = [...navItemsLeft, ...navItemsRight];
 						panel.style.maxHeight = '0px';
 						panel.classList.remove('opacity-100', 'translate-y-0');
 						panel.classList.add('opacity-0', '-translate-y-1');
+					}
+					// Adjust mobile menu container height if open
+					const isMenuOpen = btn?.getAttribute('aria-expanded') === 'true';
+					if (menu && isMenuOpen) {
+						const inner = menu.firstElementChild;
+						if (inner) {
+							menu.style.maxHeight = inner.scrollHeight + 'px';
+						}
 					}
 				}
 
