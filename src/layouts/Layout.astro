@@ -1,12 +1,23 @@
 ---
 import '../styles/global.css';
 import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
 
 interface Props {
 	title: string;
+	fullBleed?: boolean;
+	hideFooter?: boolean;
+	bodyClass?: string;
+	viewportFit?: boolean;
 }
 
-const { title } = Astro.props;
+const {
+	title,
+	fullBleed = false,
+	hideFooter = false,
+	bodyClass = 'bg-gray-400',
+	viewportFit = false,
+} = Astro.props;
 ---
 
 <!doctype html>
@@ -14,14 +25,28 @@ const { title } = Astro.props;
 	<head>
 		<meta charset="utf-8" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
+		<meta
+			name="viewport"
+			content={viewportFit
+				? 'width=device-width, initial-scale=1, viewport-fit=cover'
+				: 'width=device-width'}
+		/>
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
 	</head>
-	<body class="m-0 bg-gray-400">
-		<Navbar />
-		<main class="pt-20">
+	<body class:list={['m-0', fullBleed ? 'overflow-x-hidden' : '', bodyClass]}>
+		{
+			fullBleed ? (
+				<div class="absolute inset-x-0 top-0 z-50">
+					<Navbar />
+				</div>
+			) : (
+				<Navbar />
+			)
+		}
+		<main class:list={[fullBleed ? 'p-0' : 'pt-20']}>
 			<slot />
 		</main>
+		{!hideFooter && <Footer />}
 	</body>
 </html>
