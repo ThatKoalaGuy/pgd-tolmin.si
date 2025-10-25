@@ -41,19 +41,22 @@ import qrCode from '../images/qr-code.png';
 				<div class="absolute inset-0 z-40 flex items-center justify-center">
 					<div class="text-center px-4">
 						<h1
-							class="m-0 text-white text-4xl md:text-8xl font-bold drop-shadow-lg"
+							class="m-0 text-white text-6xl md:text-8xl font-bold drop-shadow-lg"
 						>
 							PGD Tolmin
 						</h1>
-						<h2 class="m-0 mt-3 text-white text-xl md:text-4xl drop-shadow">
+						<h2 class="m-0 mt-3 text-white text-3xl md:text-4xl drop-shadow">
 							Tukaj - za vas.
 						</h2>
 					</div>
 				</div>
 
 				<!-- QR Code Blob - Bottom Left -->
-				<div class="absolute bottom-8 left-8 z-40 mb-5">
-					<div class="relative w-40 md:w-65 group">
+				<div
+					class="absolute z-40 mb-8"
+					style="left: max(1rem, env(safe-area-inset-left)); bottom: max(1rem, env(safe-area-inset-bottom));"
+				>
+					<div class="relative w-48 sm:w-64 md:w-72 group">
 						<!-- Blob background -->
 						<div
 							class="absolute inset-0 bg-red-600 rounded-full blur-2xl opacity-60 scale-110"
@@ -62,7 +65,7 @@ import qrCode from '../images/qr-code.png';
 
 						<!-- QR Code container -->
 						<div
-							class="relative bg-white/95 backdrop-blur-sm rounded-3xl p-4 shadow-2xl"
+							class="relative bg-white/95 backdrop-blur-sm rounded-3xl px-4 py-2.5 sm:px-5 sm:py-3 shadow-2xl"
 						>
 							<p
 								class="text-center text-xs md:text-sm font-medium text-gray-700 mb-2"
@@ -71,7 +74,7 @@ import qrCode from '../images/qr-code.png';
 								Poiščite nas pod davčno številko
 								<b
 									id="copy-tax-number"
-									class="text-xl hover:text-red-600 cursor-pointer transition-colors inline-flex items-center gap-1"
+									class="text-lg sm:text-xl hover:text-red-600 cursor-pointer transition-colors inline-flex items-center gap-1"
 									title="Klikni za kopiranje"
 								>
 									19599056
@@ -102,9 +105,15 @@ import qrCode from '../images/qr-code.png';
 								target="_blank"
 								class="block transition-transform hover:scale-105"
 							>
-								<Image src={qrCode} alt="QR Code" class="w-full h-auto" />
+								<div class="flex justify-center">
+									<Image
+										src={qrCode}
+										alt="QR Code"
+										class="w-28 sm:w-36 md:w-40 h-auto"
+									/>
+								</div>
 								<p
-									class="text-center text-s text-gray-600 mt-2 group-hover:text-red-600 transition-colors"
+									class="text-center text-sm text-gray-600 mt-2 group-hover:text-red-600 transition-colors"
 								>
 									👆 Klikni za oddajo
 								</p>

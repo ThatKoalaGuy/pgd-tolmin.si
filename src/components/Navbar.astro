@@ -232,7 +232,11 @@ const allItems = [...navItemsLeft, ...navItemsRight];
 											/>
 										</svg>
 									</button>
-									<ul id={`submenu-${idx}`} class="hidden pl-4 space-y-1">
+									<ul
+										id={`submenu-${idx}`}
+										class="pl-4 space-y-1 overflow-hidden opacity-0 transform -translate-y-1 transition-all duration-300 ease-out"
+										style="max-height: 0px;"
+									>
 										{item.children.map((child) => (
 											<li>
 												<a
@@ -296,14 +300,28 @@ const allItems = [...navItemsLeft, ...navItemsRight];
 			iconClose?.classList.toggle('hidden');
 		});
 
-		// Mobile submenu toggles
+		// Mobile submenu toggles with animation
 		menu?.querySelectorAll('button[aria-controls]').forEach((toggleBtn) => {
 			toggleBtn.addEventListener('click', () => {
 				const id = toggleBtn.getAttribute('aria-controls');
 				const panel = id ? document.getElementById(id) : null;
 				const expanded = toggleBtn.getAttribute('aria-expanded') === 'true';
 				toggleBtn.setAttribute('aria-expanded', String(!expanded));
-				panel?.classList.toggle('hidden');
+
+				if (panel) {
+					if (!expanded) {
+						// Expand
+						panel.style.maxHeight = panel.scrollHeight + 'px';
+						panel.classList.remove('opacity-0', '-translate-y-1');
+						panel.classList.add('opacity-100', 'translate-y-0');
+					} else {
+						// Collapse
+						panel.style.maxHeight = '0px';
+						panel.classList.remove('opacity-100', 'translate-y-0');
+						panel.classList.add('opacity-0', '-translate-y-1');
+					}
+				}
+
 				const chevron = menu.querySelector(`svg[data-chevron="${id}"]`);
 				chevron?.classList.toggle('rotate-180');
 			});
