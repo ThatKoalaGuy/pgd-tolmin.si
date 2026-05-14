@@ -112,7 +112,7 @@ const allItems = [...navItemsLeft, ...navItemsRight];
 							) : (
 								<a
 									href={item.href}
-									class="inline-flex items-center gap-1 text-black hover:text-red-600 transition-colors duration-200"
+									class="block w-full py-2 sm:py-3 px-2 text-black hover:text-red-600 transition-colors duration-200 text-left"
 								>
 									{item.name}
 								</a>
@@ -203,8 +203,8 @@ const allItems = [...navItemsLeft, ...navItemsRight];
 			id="mobile-menu"
 			class="md:hidden border-t border-transparent overflow-hidden max-h-0 opacity-0 -translate-y-2 transition-all duration-300 ease-out pointer-events-none"
 		>
-			<div class="mobile-menu-inner pt-3 pb-6">
-				<ul class="space-y-2 text-xl font-medium">
+			<div class="mobile-menu-inner pt-2 pb-4 sm:pt-3 sm:pb-6 px-2">
+				<ul class="space-y-1 sm:space-y-2 text-lg sm:text-xl font-medium">
 					{
 						allItems.map((item, idx) => (
 							<li>
@@ -212,7 +212,7 @@ const allItems = [...navItemsLeft, ...navItemsRight];
 									<>
 										<button
 											type="button"
-											class="w-full flex items-center justify-between py-3 text-black hover:text-red-600 text-left"
+											class="w-full flex items-center justify-between py-2 sm:py-3 px-2 text-black hover:text-red-600 text-left"
 											aria-controls={`submenu-${idx}`}
 											aria-expanded="false"
 										>
@@ -241,7 +241,7 @@ const allItems = [...navItemsLeft, ...navItemsRight];
 												<li>
 													<a
 														href={child.href}
-														class="block py-2 text-base text-black hover:text-red-600 text-left"
+														class="block py-1 sm:py-2 px-2 text-sm sm:text-base text-black hover:text-red-600 text-left transition-colors"
 													>
 														{child.name}
 													</a>
@@ -252,7 +252,7 @@ const allItems = [...navItemsLeft, ...navItemsRight];
 								) : (
 									<a
 										href={item.href}
-										class="block w-full py-3 text-black hover:text-red-600 transition-colors duration-200 text-left"
+										class="block w-full py-2 sm:py-3 px-2 text-black hover:text-red-600 transition-colors duration-200 text-left"
 									>
 										{item.name}
 									</a>
@@ -304,13 +304,13 @@ const allItems = [...navItemsLeft, ...navItemsRight];
 						'opacity-0',
 						'-translate-y-2',
 						'pointer-events-none',
-						'border-transparent'
+						'border-transparent',
 					);
 					menu.classList.add(
 						'opacity-100',
 						'translate-y-0',
 						'pointer-events-auto',
-						'border-gray-300'
+						'border-gray-300',
 					);
 					if (inner) {
 						menu.style.maxHeight = inner.scrollHeight + 'px';
@@ -322,13 +322,13 @@ const allItems = [...navItemsLeft, ...navItemsRight];
 						'opacity-100',
 						'translate-y-0',
 						'pointer-events-auto',
-						'border-gray-300'
+						'border-gray-300',
 					);
 					menu.classList.add(
 						'opacity-0',
 						'-translate-y-2',
 						'pointer-events-none',
-						'border-transparent'
+						'border-transparent',
 					);
 				}
 			}

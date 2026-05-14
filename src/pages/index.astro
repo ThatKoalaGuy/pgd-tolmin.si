@@ -29,13 +29,15 @@ import qrCode from '../images/qr-code.png';
 		<div
 			class="absolute inset-0 z-40 flex items-center justify-center mb-24 sm:mb-0"
 		>
-			<div class="text-center px-4">
+			<div class="text-center px-4 sm:px-6">
 				<h1
-					class="m-0 text-white text-6xl md:text-8xl font-bold drop-shadow-lg"
+					class="m-0 text-white text-4xl sm:text-6xl md:text-8xl font-bold drop-shadow-lg"
 				>
 					PGD Tolmin
 				</h1>
-				<h2 class="m-0 mt-3 text-white text-3xl md:text-4xl drop-shadow">
+				<h2
+					class="m-0 mt-2 sm:mt-3 text-white text-lg sm:text-3xl md:text-4xl drop-shadow"
+				>
 					Tukaj - za vas.
 				</h2>
 			</div>
@@ -43,19 +45,17 @@ import qrCode from '../images/qr-code.png';
 
 		<!-- QR Code Blob - Bottom Left -->
 		<div
-			class="absolute z-40 mb-8 mt-8"
+			class="absolute z-40 hidden sm:block"
 			style="left: max(1rem, env(safe-area-inset-left)); bottom: max(1rem, env(safe-area-inset-bottom));"
 		>
-			<div class="relative w-40 sm:w-64 md:w-72 group">
-				<!-- Blob background -->
+			<div class="relative w-64 md:w-72 group">
 				<div
-					class="absolute inset-0 bg-red-600 rounded-full blur-2xl opacity-60 scale-100 sm:scale-110"
+					class="absolute inset-0 bg-red-600 rounded-full blur-2xl opacity-60 scale-110"
 				>
 				</div>
 
-				<!-- QR Code container -->
 				<div
-					class="relative bg-white/95 backdrop-blur-sm rounded-3xl px-3 py-2 sm:px-5 sm:py-3 shadow-2xl"
+					class="relative bg-white/95 backdrop-blur-sm rounded-3xl px-5 py-3 shadow-2xl"
 				>
 					<p
 						class="text-center text-xs md:text-sm font-medium text-gray-700 mb-2"
@@ -92,11 +92,7 @@ import qrCode from '../images/qr-code.png';
 						class="block transition-transform hover:scale-105"
 					>
 						<div class="flex justify-center">
-							<Image
-								src={qrCode}
-								alt="QR Code"
-								class="w-24 sm:w-36 md:w-40 h-auto"
-							/>
+							<Image src={qrCode} alt="QR Code" class="w-36 md:w-40 h-auto" />
 						</div>
 						<p
 							class="text-center text-sm text-gray-600 mt-2 group-hover:text-red-600 transition-colors"
@@ -107,9 +103,158 @@ import qrCode from '../images/qr-code.png';
 				</div>
 			</div>
 		</div>
+
+		<div
+			class="fixed bottom-16 left-4 z-60 sm:hidden"
+			style="bottom: max(4rem, env(safe-area-inset-bottom)); left: max(1rem, env(safe-area-inset-left));"
+		>
+			<div class="relative">
+				<button
+					id="donation-toggle"
+					type="button"
+					class="flex h-12 w-12 items-center justify-center rounded-full bg-red-600 text-white shadow-xl shadow-red-600/30 focus:outline-none focus:ring-2 focus:ring-white/80"
+					aria-controls="donation-panel"
+					aria-expanded="false"
+					aria-label="Odpri donacijski obrazec"
+				>
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						class="h-6 w-6"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+					>
+						<path
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							d="M12 5v14M5 12h14"></path>
+					</svg>
+				</button>
+
+				<div
+					id="donation-panel"
+					class="absolute bottom-full left-0 mb-3 w-[min(18rem,calc(100vw-2rem))] rounded-2xl border border-stone-200 bg-white/95 p-3 shadow-2xl backdrop-blur-sm opacity-0 translate-y-2 scale-95 pointer-events-none transition-all duration-200 ease-out"
+				>
+					<button
+						id="donation-close"
+						type="button"
+						class="absolute right-2 top-2 flex h-8 w-8 items-center justify-center rounded-full bg-stone-100 text-gray-600 transition-colors hover:bg-stone-200 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-red-600/40"
+						aria-label="Zapri donacijski obrazec"
+					>
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							class="h-4 w-4"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="2"
+						>
+							<path
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								d="M6 18L18 6M6 6l12 12"></path>
+						</svg>
+					</button>
+
+					<div class="mb-2 flex items-start justify-between gap-3 pr-10">
+						<p class="text-sm font-semibold text-gray-900">
+							Podprite PGD Tolmin z 1% dohodnine.
+						</p>
+					</div>
+
+					<p class="mb-2 text-xs leading-5 text-gray-700">
+						Poiščite nas pod davčno številko
+						<b
+							id="copy-tax-number"
+							class="inline-flex items-center gap-1 text-sm text-red-700"
+							title="Klikni za kopiranje"
+						>
+							19599056
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								class="h-4 w-4"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="currentColor"
+								stroke-width="2"
+							>
+								<rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+								<path
+									d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+								></path>
+							</svg>
+						</b>
+						<span id="copy-feedback" class="ml-1 hidden text-xs text-green-600"
+							>✓ Kopirano!</span
+						>
+					</p>
+
+					<a
+						href="https://edavki.durs.si/edavkiportal/OpenPortal/CommonPages/Opdynp/PageD.aspx?category=namenitev_dela_dohodnine_fo"
+						target="_blank"
+						class="block rounded-xl border border-stone-200 bg-stone-50 p-2 transition-transform active:scale-[0.99]"
+					>
+						<div class="mx-auto flex w-32 justify-center">
+							<Image src={qrCode} alt="QR Code" class="h-auto w-full" />
+						</div>
+						<p class="mt-2 text-center text-xs font-medium text-gray-600">
+							Pritisni za oddajo obrazca
+						</p>
+					</a>
+				</div>
+			</div>
+		</div>
 	</section>
 
 	<script>
+		const donationToggle = document.getElementById('donation-toggle');
+		const donationPanel = document.getElementById('donation-panel');
+		const donationClose = document.getElementById('donation-close');
+
+		const openDonationPanel = () => {
+			donationToggle?.setAttribute('aria-expanded', 'true');
+			donationPanel?.classList.remove(
+				'opacity-0',
+				'translate-y-2',
+				'scale-95',
+				'pointer-events-none',
+			);
+			donationPanel?.classList.add(
+				'opacity-100',
+				'translate-y-0',
+				'scale-100',
+				'pointer-events-auto',
+			);
+		};
+
+		const closeDonationPanel = () => {
+			donationToggle?.setAttribute('aria-expanded', 'false');
+			donationPanel?.classList.add(
+				'opacity-0',
+				'translate-y-2',
+				'scale-95',
+				'pointer-events-none',
+			);
+			donationPanel?.classList.remove(
+				'opacity-100',
+				'translate-y-0',
+				'scale-100',
+				'pointer-events-auto',
+			);
+		};
+
+		donationToggle?.addEventListener('click', () => {
+			const isOpen = donationToggle.getAttribute('aria-expanded') === 'true';
+			if (isOpen) {
+				closeDonationPanel();
+			} else {
+				openDonationPanel();
+			}
+		});
+
+		donationClose?.addEventListener('click', closeDonationPanel);
+
 		document
 			.getElementById('copy-tax-number')
 			?.addEventListener('click', async () => {

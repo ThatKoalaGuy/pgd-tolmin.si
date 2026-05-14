@@ -15,7 +15,7 @@ const {
 	title,
 	fullBleed = false,
 	hideFooter = true,
-	bodyClass = 'bg-gray-400',
+	bodyClass = 'bg-stone-300',
 	viewportFit = false,
 } = Astro.props;
 ---
@@ -32,6 +32,12 @@ const {
 				: 'width=device-width'}
 		/>
 		<meta name="generator" content={Astro.generator} />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap"
+			rel="stylesheet"
+		/>
 		<title>{title}</title>
 	</head>
 	<body class:list={['m-0', fullBleed ? 'overflow-x-hidden' : '', bodyClass]}>
