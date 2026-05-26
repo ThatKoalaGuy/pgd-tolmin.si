@@ -5,28 +5,28 @@ const sections = [
 	{
 		id: 'naloge',
 		title: 'Naloge in poslanstvo',
-		content: `Operativa PGD Tolmin je jedro naše gasilske dejavnosti. Sestavljajo jo usposobljeni gasilci, ki so pripravljeni na intervencijo 24 ur na dan, 365 dni v letu. Naše področje delovanja obsega občino Tolmin in sosednje občine, kjer nudimo pomoč pri požarih, prometnih nesrečah, poplavah in drugih nesrečah.`,
+		content: `Operativa PGD Tolmin je jedro naše gasilske dejavnosti. Sestavljajo jo usposobljeni gasilci, ki so pripravljeni na intervencijo 24 ur na dan, 365 dni v letu. Naše področje delovanja obsega občino Tolmin, kjer nudimo pomoč pri požarih, prometnih nesrečah, poplavah in drugih nesrečah.`,
 	},
 	{
 		id: 'sestava',
 		title: 'Sestava in organizacija',
-		content: `Operativno moštvo PGD Tolmin sestavlja več kot 40 usposobljenih gasilcev, razporejenih v izmene za zagotavljanje stalne pripravljenosti. Na čelu operativnega dela je poveljnik društva s pomočniki, ki skrbijo za koordinacijo in usposobljenost enote.`,
+		content: `Operativno moštvo PGD Tolmin sestavlja več kot XX usposobljenih gasilcev, razporejenih v izmene za zagotavljanje stalne pripravljenosti. Na čelu operativnega dela je poveljnik društva s pomočniki, ki skrbijo za koordinacijo in usposobljenost enote.`,
 	},
 	{
 		id: 'usposabljanja',
 		title: 'Usposabljanja in vaje',
-		content: `Redno usposabljanje je temelj naše operativne pripravljenosti. Vsak mesec izvajamo praktične vaje na terenu, kjer urimo gašenje, reševanje iz vozil, tehnično reševanje in delo z opremo. Naši gasilci se udeležujejo tudi tečajev in tekmovanj na regijskem in državnem nivoju.`,
+		content: `Redno usposabljanje je temelj naše operativne pripravljenosti. Vsaka 2 tedna izvajamo vaje operative, kjer urimo gašenje, reševanje iz vozil, tehnično reševanje in delo z opremo. Naši gasilci se udeležujejo tudi tečajev in tekmovanj na regijskem in državnem nivoju.`,
 	},
 	{
 		id: 'intervencije',
 		title: 'Intervencije',
-		content: `Letno izvedemo več kot 80 intervencij različnih vrst. Med najpogostejše sodijo tehnična reševanja pri prometnih nesrečah, gašenje požarov na prostem in v objektih, ter asistenca pri poplavah in zemeljskih plazovih, ki so v Tolminski kotlini posebej pogosti.`,
+		content: `Letno izvedemo več kot 180 intervencij različnih vrst. Med najpogostejše sodijo tehnična reševanja pri prometnih nesrečah ter gašenje požarov na prostem in v objektih.`,
 	},
 ];
 
 const stats = [
-	{ value: '40+', label: 'Operativnih gasilcev' },
-	{ value: '80+', label: 'Intervencij letno' },
+	{ value: 'XX+', label: 'Operativnih gasilcev' },
+	{ value: '180+', label: 'Intervencij letno' },
 	{ value: '24/7', label: 'Pripravljenost' },
 ];
 ---
@@ -38,23 +38,51 @@ const stats = [
 	<!-- Dark hero, no numbers -->
 	<div class="relative bg-stone-900 overflow-hidden">
 		<div class="absolute inset-0 pointer-events-none">
-			<div class="absolute -top-20 -right-20 w-96 h-96 bg-red-600/20 rounded-full blur-3xl"></div>
-			<div class="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-red-600 to-transparent"></div>
+			<div
+				class="absolute -top-20 -right-20 w-96 h-96 bg-red-600/20 rounded-full blur-3xl"
+			>
+			</div>
+			<div
+				class="absolute bottom-0 left-0 w-full h-px bg-linear-to-r from-transparent via-red-600 to-transparent"
+			>
+			</div>
 		</div>
 		<div class="max-w-7xl mx-auto px-6 py-16 relative">
-			<p class="text-red-500 text-xs font-bold tracking-[0.25em] uppercase mb-3">PGD Tolmin</p>
-			<h1 class="text-5xl md:text-7xl font-black text-white leading-none tracking-tight">
+			<p
+				class="text-red-500 text-xs font-bold tracking-[0.25em] uppercase mb-3"
+			>
+				PGD Tolmin
+			</p>
+			<h1
+				class="text-5xl md:text-7xl font-black text-white leading-none tracking-tight"
+			>
 				Operativa
 			</h1>
 
 			<!-- Stats inline in hero -->
 			<div class="mt-10 flex flex-wrap gap-8">
-				{stats.map((s) => (
-					<div>
-						<p class="text-3xl font-black text-white">{s.value}</p>
-						<p class="text-stone-400 text-xs mt-0.5 tracking-wide">{s.label}</p>
-					</div>
-				))}
+				{
+					stats.map((s) => (
+						<div>
+							<p class="text-3xl font-black text-white">{s.value}</p>
+							<p class="text-stone-400 text-xs mt-0.5 tracking-wide">
+								{s.label}
+							</p>
+						</div>
+					))
+				}
+			</div>
+
+			<!-- GEŠP / Category badge -->
+			<div class="mt-6">
+				<span
+					class="inline-flex items-center gap-3 bg-red-600 text-white px-3 py-1 rounded-full font-bold shadow-sm"
+				>
+					<span class="text-sm">GEŠP</span>
+					<span class="text-xs bg-white/20 px-2 py-0.5 rounded-full"
+						>4. kategorija</span
+					>
+				</span>
 			</div>
 		</div>
 	</div>
@@ -63,15 +91,19 @@ const stats = [
 	<div class="bg-stone-50">
 		<div class="max-w-7xl mx-auto px-6 py-16">
 			<div class="grid md:grid-cols-2 gap-x-16 gap-y-12">
-				{sections.map((s) => (
-					<section id={s.id} class="section-card scroll-mt-24">
-						<div class="flex items-center gap-3 mb-4">
-							<div class="h-5 w-1 bg-red-600 rounded-full shrink-0"></div>
-							<h2 class="text-xl font-black text-stone-900 tracking-tight">{s.title}</h2>
-						</div>
-						<p class="text-stone-600 leading-relaxed pl-4">{s.content}</p>
-					</section>
-				))}
+				{
+					sections.map((s) => (
+						<section id={s.id} class="section-card scroll-mt-24">
+							<div class="flex items-center gap-3 mb-4">
+								<div class="h-5 w-1 bg-red-600 rounded-full shrink-0" />
+								<h2 class="text-xl font-black text-stone-900 tracking-tight">
+									{s.title}
+								</h2>
+							</div>
+							<p class="text-stone-600 leading-relaxed pl-4">{s.content}</p>
+						</section>
+					))
+				}
 			</div>
 		</div>
 	</div>
@@ -83,11 +115,20 @@ const stats = [
 		transform: translateY(20px);
 		animation: fadeUp 0.5s ease-out forwards;
 	}
-	.section-card:nth-child(2) { animation-delay: 100ms; }
-	.section-card:nth-child(3) { animation-delay: 200ms; }
-	.section-card:nth-child(4) { animation-delay: 300ms; }
+	.section-card:nth-child(2) {
+		animation-delay: 100ms;
+	}
+	.section-card:nth-child(3) {
+		animation-delay: 200ms;
+	}
+	.section-card:nth-child(4) {
+		animation-delay: 300ms;
+	}
 
 	@keyframes fadeUp {
-		to { opacity: 1; transform: translateY(0); }
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
 	}
 </style>

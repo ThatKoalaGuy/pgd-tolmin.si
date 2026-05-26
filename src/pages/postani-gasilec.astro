@@ -4,53 +4,138 @@ import Layout from '../layouts/Layout.astro';
 
 <Layout title="Postani gasilec! | PGD Tolmin">
 	<div class="px-4 py-10">
-		<div class="max-w-3xl mx-auto">
-			<h1 class="m-0 text-3xl md:text-4xl font-bold text-gray-900">
-				Te zanima pridružitev gasilcem?
-			</h1>
-			<p class="mt-2 text-gray-700">
-				Tukaj boš našel vse potrebne informacije.
-			</p>
+		<div class="max-w-4xl mx-auto">
+			<!-- Hero -->
+			<header class="mb-6 text-center">
+				<h1 class="m-0 text-3xl md:text-4xl font-black text-stone-900">
+					Postani gasilec
+				</h1>
+				<p class="mt-2 text-stone-600">Pridruži se nam in pomagaj skupnosti.</p>
+			</header>
 
+			<!-- Intro -->
 			<section
-				class="mt-6 rounded-xl border border-gray-200 bg-white/80 p-6 shadow-sm"
+				class="rounded-2xl bg-white border border-stone-200 p-8 shadow-sm mb-6"
 			>
-				<p class="text-gray-900 leading-relaxed">
-					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam
-					pellentesque quam nibh, at viverra diam tincidunt eu. Aliquam ut
-					egestas nisi. Sed aliquet molestie dignissim. Mauris eget diam eget mi
-					gravida commodo faucibus a velit. Suspendisse egestas elementum quam
-					quis aliquam. In molestie urna et libero scelerisque pharetra. Sed et
-					tortor sit amet sem maximus scelerisque. Etiam vulputate leo velit, at
-					rhoncus ipsum lacinia ac. Quisque ut hendrerit diam.
-					<br />
-					Vestibulum eget tortor ac risus eleifend accumsan eu vitae sem. Nam auctor,
-					felis vitae pulvinar bibendum, tellus ex venenatis magna, nec molestie
-					dui metus quis nibh. Nam fringilla et nulla at cursus. Curabitur ultrices
-					sed urna varius viverra. Morbi ac risus in sem finibus elementum. Morbi
-					et massa sit amet mi varius fermentum. Vestibulum interdum lectus a dapibus
-					laoreet. Quisque placerat, ex a fringilla bibendum, dolor libero commodo
-					mauris, vitae ultrices ante quam a erat. Integer tempus sem eget elit congue,
-					eget accumsan enim bibendum. In gravida finibus dolor, id imperdiet turpis
-					laoreet nec.
-					<br />
-					Aliquam vitae dui at nisi semper congue. Aliquam auctor ullamcorper tristique.
-					Nullam pretium tincidunt nunc. Morbi feugiat turpis in fringilla posuere.
-					Proin sed arcu sit amet metus bibendum dapibus. Nulla rutrum, augue at
-					consequat interdum, ipsum felis sodales ligula, in suscipit orci tortor
-					ut tellus. Aliquam vel nunc tincidunt, egestas enim tristique, scelerisque
-					massa. Fusce lacinia fermentum lorem in iaculis. Suspendisse quis erat
-					interdum, blandit lectus sed, rutrum enim. Suspendisse mollis placerat
-					sem nec dictum. Integer mauris elit, varius vel tincidunt quis, elementum
-					maximus nisl. Nunc quis lectus sed ex iaculis vehicula non in augue. Nam
-					vitae massa non nunc vestibulum eleifend in ac est.
-					<br />
-					Praesent sit amet volutpat turpis. Morbi semper orci nec hendrerit dignissim.
-					Integer aliquam ultricies felis. Morbi mattis viverra sapien eu condimentum.
-					Phasellus suscipit est ut nisl viverra, a blandit sapien accumsan. Nulla
-					pulvinar ex eget dictum rutrum.
+				<p class="text-stone-700 leading-relaxed">
+					Veseli nas, da razmišljaš o pridružitvi PGD Tolmin. Kot prostovoljno
+					gasilsko društvo se ukvarjamo z reševanjem, gašenjem in tehničnimi
+					intervencijami. Če si pripravljen pomagati drugim in se učiti novih
+					veščin, si dobrodošel.
 				</p>
 			</section>
+
+			<!-- How it works (3 steps) -->
+			<section class="grid gap-6 lg:grid-cols-3 mb-6">
+				<div class="rounded-2xl bg-white border border-stone-200 p-6 shadow-sm">
+					<h3 class="text-lg font-bold text-stone-900">1. Pridruži se</h3>
+					<p class="mt-2 text-stone-600 text-sm">
+						Kontaktiraj nas ali pa pridi kar na vaje, kjer boš videl kako stvari
+						potekajo.
+					</p>
+				</div>
+
+				<div class="rounded-2xl bg-white border border-stone-200 p-6 shadow-sm">
+					<h3 class="text-lg font-bold text-stone-900">2. Usposabljanje</h3>
+					<p class="mt-2 text-stone-600 text-sm">
+						Sodeluj na vajah in ter opravi osnovne tečaje.
+					</p>
+				</div>
+
+				<div class="rounded-2xl bg-white border border-stone-200 p-6 shadow-sm">
+					<h3 class="text-lg font-bold text-stone-900">
+						3. Aktivno sodelovanje
+					</h3>
+					<p class="mt-2 text-stone-600 text-sm">
+						Pridruži se intervencijam in dogodkom!
+					</p>
+				</div>
+			</section>
+
+			<div class="grid gap-6 mb-6">
+				<div class="grid gap-6 md:grid-cols-2">
+					<!-- Vaje (left) -->
+					<section
+						class="rounded-2xl bg-white border border-stone-200 p-6 shadow-sm"
+					>
+						<p class="text-xs uppercase tracking-wide text-stone-400 font-bold">
+							Vaje
+						</p>
+						<p class="mt-2 text-stone-700">
+							Vaje potekajo <strong>vsako drugo nedeljo</strong>. Naslednje vaje
+							so na: <strong id="next-practice-date">—</strong> ob 8:00.
+						</p>
+					</section>
+
+					<!-- Pogoji (right) -->
+					<aside
+						class="rounded-2xl bg-stone-50 border border-stone-200 p-6 shadow-sm"
+					>
+						<p class="text-xs uppercase tracking-wide text-stone-400 font-bold">
+							Pogoji
+						</p>
+						<ul
+							class="mt-3 text-stone-700 text-sm list-inside list-disc space-y-1"
+						>
+							<li>Minimalna starost: 16 s soglasjem staršev</li>
+							<li>Volja za učenje in sodelovanje</li>
+						</ul>
+					</aside>
+				</div>
+
+				<!-- Kaj zdaj (full width below) -->
+				<div class="rounded-2xl bg-white border border-stone-200 p-6 shadow-sm">
+					<h3 class="text-lg font-bold text-stone-900">Kaj zdaj?</h3>
+					<p class="mt-2 text-stone-600 text-sm leading-relaxed">
+						Če želiš več informacij ali se želiš prijaviti, nas kontaktiraj.
+						Lahko pošlješ e-mail, prideš na uradne ure, ali pa kar na vaje.
+					</p>
+
+					<div class="mt-4">
+						<a
+							href="/kontakt"
+							class="inline-block rounded-lg bg-red-600 text-white px-4 py-2 font-semibold shadow hover:bg-red-700"
+							>Kontakt</a
+						>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 </Layout>
+
+<script>
+	// Compute next practice date and upcoming occurrences every 14 days.
+	(function () {
+		const msDay = 24 * 60 * 60 * 1000;
+		// Reference date that is on the practice cycle (known practice): 31 May 2026
+		const ref = new Date('2026-05-31T00:00:00');
+		const intervalDays = 14;
+
+		function startOfDay(d: any) {
+			return new Date(d.getFullYear(), d.getMonth(), d.getDate());
+		}
+		const today = startOfDay(new Date());
+
+		let next = startOfDay(new Date(ref));
+		while (next < today) {
+			next = new Date(next.getTime() + intervalDays * msDay);
+		}
+
+		function fmt(d: any) {
+			try {
+				return new Intl.DateTimeFormat('sl-SI', {
+					weekday: 'long',
+					day: 'numeric',
+					month: 'long',
+					year: 'numeric',
+				}).format(d);
+			} catch (e) {
+				return d.toLocaleDateString();
+			}
+		}
+
+		const nextEl = document.getElementById('next-practice-date');
+		if (nextEl) nextEl.textContent = fmt(next);
+	})();
+</script>

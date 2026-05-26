@@ -2,41 +2,169 @@
 import Layout from '../layouts/Layout.astro';
 import { Image } from 'astro:assets';
 import gvc1 from '../images/vozila/gvc-1.jpg';
-import ac2470 from '../images/vozila/ac-2470.jpg';
+import ac2460 from '../images/vozila/ac-2470.jpg';
+
+const badgeColors = {
+  Poveljevanje: 'bg-blue-600',
+  Požari: 'bg-green-700',
+  Logistika: 'bg-stone-600',
+  Gašenje: 'bg-red-600',
+  Cisterna: 'bg-orange-600',
+  Avtolestev: 'bg-sky-600',
+  'Tehnične int.': 'bg-yellow-500',
+};
 
 const vehicles = [
-	{
-		id: 'gvc-1',
-		name: 'GVC-1',
-		fullName: 'Gasilsko Vozilo Cisterna',
-		year: '2008',
-		image: gvc1,
-		badge: 'Gašenje',
-		badgeColor: 'bg-red-600',
-		specs: [
-			{ label: 'Znamka', value: 'Mercedes-Benz Atego' },
-			{ label: 'Kapaciteta vode', value: '3.000 L' },
-			{ label: 'Črpalka', value: '1.600 L/min' },
-			{ label: 'Posadka', value: '1+5' },
-		],
-		description: 'Glavno intervencijsko vozilo za gašenje požarov. Opremljeno z visokotlačno in nizkotlačno črpalko, hidravličnim orodjem ter celotno opremo za gašenje in reševanje.',
-	},
-	{
-		id: 'ac-2470',
-		name: 'AC-24/70',
-		fullName: 'Avtocisterna',
-		year: '1997',
-		image: ac2470,
-		badge: 'Cisterna',
-		badgeColor: 'bg-orange-600',
-		specs: [
-			{ label: 'Znamka', value: 'TAM 260' },
-			{ label: 'Kapaciteta vode', value: '7.000 L' },
-			{ label: 'Črpalka', value: '2.400 L/min' },
-			{ label: 'Posadka', value: '1+3' },
-		],
-		description: 'Velika avtocisterna za zagotavljanje zalog vode na terenu. Nezamenljiva pri požarih na območjih brez hidrantnega omrežja ter pri dolgotrajnih intervencijah.',
-	},
+  {
+    id: 'pv-1',
+    name: 'PV-1',
+    callSign: 'TOLMIN 21',
+    fullName: 'Manjše poveljniško vozilo',
+    year: '1900',
+    image: gvc1,
+    badge: 'Poveljevanje',
+    specs: [
+      { label: 'Znamka / Model', value: 'Mazda BT-50' },
+      { label: 'Pogon', value: '4×4' },
+      { label: 'Posadka', value: '1+4' },
+    ],
+    description: 'Poveljniško vozilo je gasilsko vozilo, s pomočjo katerega vodja oz. vodstvo intervencije vodi taktične enote.',
+  },
+  {
+    id: 'gvgp-1',
+    name: 'GVGP-1',
+    callSign: 'TOLMIN 51',
+    fullName: 'Manjše gasilsko vozilo za gašenje gozdnih požarov',
+    year: '1900',
+    image: gvc1,
+    badge: 'Požari',
+    specs: [
+      { label: 'Znamka / Model', value: 'Mitsubishi L200' },
+      { label: 'Pogon', value: '4×4' },
+      { label: 'Posadka', value: '1+4' },
+    ],
+    description: 'Manjše gasilsko vozilo za gašenje gozdnih požarov je namenjeno prevozu osnovne enote za gašenje gozdnih požarov in potrebne opreme.',
+  },
+  {
+    id: 'gvm-1-91',
+    name: 'GVM-1',
+    callSign: 'TOLMIN 91',
+    fullName: 'Gasilsko vozilo za prevoz moštva',
+    year: '1900',
+    image: gvc1,
+    badge: 'Logistika',
+    specs: [
+      { label: 'Znamka / Model', value: 'Renault Master' },
+      { label: 'Posadka', value: '1+7' },
+    ],
+    description: 'Gasilsko vozilo za prevoz moštva je vozilo za prevoz gasilcev in osebne opreme.',
+  },
+  {
+    id: 'gvl-1',
+    name: 'GVL-1',
+    callSign: 'TOLMIN 94',
+    fullName: 'Gasilsko Vozilo za Logistiko',
+    year: '1900',
+    image: gvc1,
+    badge: 'Logistika',
+    specs: [
+      { label: 'Znamka / Model', value: 'Renault Master' },
+      { label: 'Posadka', value: '1+1' },
+    ],
+    description: 'Logistično vozilo za prevoz opreme, materiala in podporo pri dolgotrajnih intervencijah. Uporablja se tudi za intervencije z nevarnimi snovmi.',
+  },
+  {
+    id: 'gvc-1',
+    name: 'GVC-1',
+    callSign: 'TOLMIN 41',
+    fullName: 'Gasilsko Vozilo s Cisterno',
+    year: '1900',
+    image: gvc1,
+    badge: 'Gašenje',
+    specs: [
+      { label: 'Znamka / Model', value: 'Scania P 360 XT' },
+      { label: 'Kapaciteta vode', value: 'XXXX L' },
+      { label: 'Črpalka', value: 'XXXX L/min' },
+      { label: 'Posadka', value: '1+7' },
+    ],
+    description: 'Glavno intervencijsko vozilo za gašenje požarov, opremljeno z visokotlačno in nizkotlačno črpalko ter hidravličnim orodjem.',
+  },
+  {
+    id: 'gvc-1625',
+    name: 'GVC-16/25',
+    callSign: 'TOLMIN 42',
+    fullName: 'Gasilsko Vozilo s Cisterno',
+    year: '1900',
+    image: gvc1,
+    badge: 'Gašenje',
+    specs: [
+      { label: 'Znamka / Model', value: 'Mercedes-Benz 1124' },
+      { label: 'Kapaciteta vode', value: 'XXXX L' },
+      { label: 'Črpalka', value: 'XXXX L/min' },
+      { label: 'Posadka', value: '1+5' },
+    ],
+    description: 'Sekundarno intervencijsko vozilo za gašenje požarov, opremljeno z visokotlačno in nizkotlačno črpalko ter hidravličnim orodjem.',
+  },
+  {
+    id: 'ac-2460',
+    name: 'AC-24/60',
+    callSign: 'TOLMIN 45',
+    fullName: 'Avtocisterna',
+    year: '1900',
+    image: ac2460,
+    badge: 'Cisterna',
+    specs: [
+      { label: 'Znamka / Model', value: 'Scania P 360 XT' },
+      { label: 'Kapaciteta vode', value: 'XXXX L' },
+      { label: 'Črpalka', value: 'XXXX L/min' },
+      { label: 'Posadka', value: '1+3' },
+    ],
+    description: 'Velika avtocisterna za zagotavljanje zalog vode na območjih brez hidrantnega omrežja.',
+  },
+  {
+    id: 'alk-2312',
+    name: 'ALK-23/12',
+    callSign: 'TOLMIN 72',
+    fullName: 'Avtolestev',
+    year: '1900',
+    image: gvc1,
+    badge: 'Avtolestev',
+    specs: [
+      { label: 'Znamka / Model', value: 'Mercedes-Benz Econic 1833' },
+      { label: 'Višina lestve', value: '23 m' },
+      { label: 'Bočni doseg', value: '12 m' },
+      { label: 'Posadka', value: '1+2' },
+    ],
+    description: 'Avtolestev za reševanje iz višin in dostop do nadstropnih objektov.',
+  },
+  {
+    id: 'htv-1',
+    name: 'HTV-1',
+    callSign: 'TOLMIN 61',
+    fullName: 'Hitro Tehnično Vozilo',
+    year: '1900',
+    image: gvc1,
+    badge: 'Tehnične int.',
+    specs: [
+      { label: 'Znamka / Model', value: 'Mercedes-Benz Sprinter 519 CDI' },
+      { label: 'Posadka', value: '1+3' },
+    ],
+    description: 'Specializirano vozilo za tehnične intervencije, predvsem prometne nesreče.',
+  },
+  {
+    id: 'trv-2d',
+    name: 'TRV-2D',
+    callSign: 'TOLMIN 62',
+    fullName: 'Tehnično Reševalno Vozilo - Dvigalo',
+    year: '1900',
+    image: gvc1,
+    badge: 'Tehnične int.',
+    specs: [
+      { label: 'Znamka / Model', value: 'Mercedes-Benz Atego 1629' },
+      { label: 'Posadka', value: '1+1' },
+    ],
+    description: 'Tehnično reševalno vozilo za prometne nesreče, reševanje iz razbitin in tehnične intervencije.',
+  },
 ];
 ---
 
@@ -49,7 +177,7 @@ const vehicles = [
 		<!-- Diagonal red accent -->
 		<div class="absolute inset-0 pointer-events-none">
 			<div class="absolute -top-20 -right-20 w-96 h-96 bg-red-600/20 rounded-full blur-3xl"></div>
-			<div class="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-red-600 to-transparent"></div>
+      <div class="absolute bottom-0 left-0 w-full h-px bg-linear-to-r from-transparent via-red-600 to-transparent"></div>
 		</div>
 
 		<div class="max-w-7xl mx-auto px-6 py-16 relative">
@@ -61,8 +189,8 @@ const vehicles = [
 					</h1>
 				</div>
 				<div class="hidden md:block mb-2 ml-auto text-right">
-					<p class="text-stone-400 text-sm">{vehicles.length} vozili v floti</p>
-					<p class="text-stone-500 text-xs mt-1">Posodobljeno 2024</p>
+					<p class="text-stone-400 text-sm">{vehicles.length} vozil v floti</p>
+					<p class="text-stone-500 text-xs mt-1">Posodobljeno 2026</p>
 				</div>
 			</div>
 		</div>
@@ -87,7 +215,7 @@ const vehicles = [
 								<h2 class="text-3xl md:text-4xl font-black text-stone-900 tracking-tight">
 									{v.name}
 								</h2>
-								<span class={`${v.badgeColor} text-white text-xs font-bold px-2.5 py-1 rounded uppercase tracking-wider`}>
+                <span class={`${badgeColors[v.badge as keyof typeof badgeColors] ?? 'bg-stone-600'} text-white text-xs font-bold px-2.5 py-1 rounded uppercase tracking-wider`}>
 									{v.badge}
 								</span>
 							</div>
@@ -110,7 +238,7 @@ const vehicles = [
 								sizes="(min-width: 768px) 60vw, 100vw"
 							/>
 							<!-- Subtle gradient overlay at bottom -->
-							<div class="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/40 to-transparent pointer-events-none"></div>
+              <div class="absolute inset-x-0 bottom-0 h-24 bg-linear-to-t from-black/40 to-transparent pointer-events-none"></div>
 							<div class="absolute bottom-4 left-4">
 								<span class="text-white/90 text-xs font-semibold tracking-widest uppercase bg-black/30 backdrop-blur-sm px-3 py-1 rounded-full">
 									{v.name}

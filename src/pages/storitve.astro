@@ -5,7 +5,8 @@ const storitve = [
 	{
 		id: 'najem-miz-klopi',
 		title: 'Najem miz in klopi',
-		description: 'Za prireditve, slavja in srečanja vam zagotovimo kakovostne mize in klopi iz lastnega inventarja. Primerno za manjše in večje prireditve na prostem ali v zaprtih prostorih.',
+		description:
+			'Za prireditve, slavja in srečanja vam zagotovimo kakovostne mize in klopi iz lastnega inventarja. Primerno za manjše in večje prireditve na prostem ali v zaprtih prostorih.',
 		items: [
 			'Dostava in prevzem na dogovorjeni lokaciji',
 			'Različne velikosti miz in klopi',
@@ -15,7 +16,8 @@ const storitve = [
 	{
 		id: 'dvigalo',
 		title: 'Pomoč z dvigalom',
-		description: 'Z našim dvigalom pomagamo pri delih na višini, rezanju dreves, postavljanju objektov in drugih opravilih, kjer je potrebna strojna pomoč z usposobljeno posadko.',
+		description:
+			'Z našim dvigalom pomagamo pri delih na višini, rezanju dreves, postavljanju objektov in drugih opravilih, kjer je potrebna strojna pomoč z usposobljeno posadko.',
 		items: [
 			'Doseg do 20 m višine',
 			'Usposobljena in certificirana posadka',
@@ -25,7 +27,8 @@ const storitve = [
 	{
 		id: 'druge',
 		title: 'Druge storitve',
-		description: 'Poleg zgoraj navedenih nudimo tudi pomoč pri različnih opravilih glede na razpoložljivost ekipe in opreme. Stopite v stik in skupaj bomo našli rešitev.',
+		description:
+			'Poleg zgoraj navedenih nudimo tudi pomoč pri različnih opravilih glede na razpoložljivost ekipe in opreme. Stopite v stik in skupaj bomo našli rešitev.',
 		items: [
 			'Črpanje vode pri poplavah',
 			'Pomoč pri organizaciji prireditev',
@@ -42,20 +45,37 @@ const storitve = [
 	<!-- Dark hero -->
 	<div class="relative bg-stone-900 overflow-hidden">
 		<div class="absolute inset-0 pointer-events-none">
-			<div class="absolute -top-20 -right-20 w-96 h-96 bg-red-600/20 rounded-full blur-3xl"></div>
-			<div class="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-red-600 to-transparent"></div>
+			<div
+				class="absolute -top-20 -right-20 w-96 h-96 bg-red-600/20 rounded-full blur-3xl"
+			>
+			</div>
+			<div
+				class="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-red-600 to-transparent"
+			>
+			</div>
 		</div>
 		<div class="max-w-7xl mx-auto px-6 py-16 relative">
 			<div class="md:flex md:items-end md:justify-between">
 				<div>
-					<p class="text-red-500 text-xs font-bold tracking-[0.25em] uppercase mb-3">PGD Tolmin</p>
-					<h1 class="text-5xl md:text-7xl font-black text-white leading-none tracking-tight">
+					<p
+						class="text-red-500 text-xs font-bold tracking-[0.25em] uppercase mb-3"
+					>
+						PGD Tolmin
+					</p>
+					<h1
+						class="text-5xl md:text-7xl font-black text-white leading-none tracking-tight"
+					>
 						Storitve
 					</h1>
 				</div>
-				<p class="mt-6 md:mt-0 text-stone-400 max-w-xs text-sm leading-relaxed md:text-right">
+				<p
+					class="mt-6 md:mt-0 text-stone-400 max-w-xs text-sm leading-relaxed md:text-right"
+				>
 					Za ponudbo nas kontaktirajte na
-					<a href="mailto:pgdtolmin@gmail.com" class="text-red-400 hover:text-red-300 transition-colors font-medium block">
+					<a
+						href="mailto:pgdtolmin@gmail.com"
+						class="text-red-400 hover:text-red-300 transition-colors font-medium block"
+					>
 						pgdtolmin@gmail.com
 					</a>
 				</p>
@@ -66,47 +86,69 @@ const storitve = [
 	<!-- Services -->
 	<div class="bg-stone-50">
 		<div class="max-w-7xl mx-auto px-6 py-16 space-y-8">
-			{storitve.map((s, i) => (
-				<section
-					id={s.id}
-					class="service-card group rounded-2xl bg-white border border-stone-200 shadow-sm hover:shadow-md hover:border-red-200 transition-all duration-200 overflow-hidden scroll-mt-24"
-					style={`animation-delay: ${i * 120}ms`}
-				>
-					<div class="h-1 w-full bg-gradient-to-r from-red-600 to-red-400 opacity-0 group-hover:opacity-100 transition-opacity duration-200"></div>
-					<div class="p-8 md:grid md:grid-cols-5 md:gap-12 items-start">
-						<div class="md:col-span-3">
-							<h2 class="text-2xl font-black text-stone-900 tracking-tight mb-3 group-hover:text-red-600 transition-colors">
-								{s.title}
-							</h2>
-							<p class="text-stone-600 leading-relaxed">{s.description}</p>
+			{
+				storitve.map((s, i) => (
+					<section
+						id={s.id}
+						class="service-card group rounded-2xl bg-white border border-stone-200 shadow-sm hover:shadow-md hover:border-red-200 transition-all duration-200 overflow-hidden scroll-mt-24"
+						style={`animation-delay: ${i * 120}ms`}
+					>
+						<div class="h-1 w-full bg-gradient-to-r from-red-600 to-red-400 opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
+						<div class="p-8 md:grid md:grid-cols-5 md:gap-12 items-start">
+							<div class="md:col-span-3">
+								<h2 class="text-2xl font-black text-stone-900 tracking-tight mb-3 group-hover:text-red-600 transition-colors">
+									{s.title}
+								</h2>
+								<p class="text-stone-600 leading-relaxed">{s.description}</p>
+							</div>
+							<div class="mt-6 md:mt-0 md:col-span-2">
+								<p class="text-xs font-bold tracking-[0.2em] uppercase text-stone-400 mb-4">
+									Vključuje
+								</p>
+								<ul class="space-y-3">
+									{s.items.map((item) => (
+										<li class="flex items-start gap-3">
+											<span class="mt-1.5 h-1.5 w-1.5 rounded-full bg-red-600 shrink-0" />
+											<span class="text-stone-600 text-sm leading-relaxed">
+												{item}
+											</span>
+										</li>
+									))}
+								</ul>
+							</div>
 						</div>
-						<div class="mt-6 md:mt-0 md:col-span-2">
-							<p class="text-xs font-bold tracking-[0.2em] uppercase text-stone-400 mb-4">Vključuje</p>
-							<ul class="space-y-3">
-								{s.items.map((item) => (
-									<li class="flex items-start gap-3">
-										<span class="mt-1.5 h-1.5 w-1.5 rounded-full bg-red-600 shrink-0"></span>
-										<span class="text-stone-600 text-sm leading-relaxed">{item}</span>
-									</li>
-								))}
-							</ul>
-						</div>
-					</div>
-				</section>
-			))}
+					</section>
+				))
+			}
 
 			<!-- CTA -->
-			<div class="rounded-2xl bg-stone-900 p-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+			<div
+				class="rounded-2xl bg-stone-900 p-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6"
+			>
 				<div>
-					<p class="text-white font-black text-xl">Nas kontaktirajte</p>
-					<p class="text-stone-400 text-sm mt-1">Storitve izvajamo glede na razpoložljivost. Cene se določijo ob povpraševanju.</p>
+					<p class="text-white font-black text-xl">Kontaktirajte nas</p>
+					<p class="text-stone-400 text-sm mt-1">
+						Storitve izvajamo glede na razpoložljivost. Cene se določijo ob
+						povpraševanju.
+					</p>
 				</div>
 				<a
 					href="mailto:pgdtolmin@gmail.com"
 					class="shrink-0 inline-flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white text-sm font-bold px-6 py-3 rounded-lg transition-colors"
 				>
-					<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-						<path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						class="h-4 w-4"
+						fill="none"
+						viewBox="0 0 24 24"
+						stroke="currentColor"
+						stroke-width="2"
+					>
+						<path
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+						></path>
 					</svg>
 					Pošlji povpraševanje
 				</a>
@@ -123,6 +165,9 @@ const storitve = [
 	}
 
 	@keyframes fadeUp {
-		to { opacity: 1; transform: translateY(0); }
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
 	}
 </style>
