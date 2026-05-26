@@ -3,46 +3,172 @@ import Layout from '../layouts/Layout.astro';
 import { Image } from 'astro:assets';
 import gvc1 from '../images/vozila/gvc-1.jpg';
 import ac2470 from '../images/vozila/ac-2470.jpg';
+
+const vehicles = [
+	{
+		id: 'gvc-1',
+		name: 'GVC-1',
+		fullName: 'Gasilsko Vozilo Cisterna',
+		year: '2008',
+		image: gvc1,
+		badge: 'Gašenje',
+		badgeColor: 'bg-red-600',
+		specs: [
+			{ label: 'Znamka', value: 'Mercedes-Benz Atego' },
+			{ label: 'Kapaciteta vode', value: '3.000 L' },
+			{ label: 'Črpalka', value: '1.600 L/min' },
+			{ label: 'Posadka', value: '1+5' },
+		],
+		description: 'Glavno intervencijsko vozilo za gašenje požarov. Opremljeno z visokotlačno in nizkotlačno črpalko, hidravličnim orodjem ter celotno opremo za gašenje in reševanje.',
+	},
+	{
+		id: 'ac-2470',
+		name: 'AC-24/70',
+		fullName: 'Avtocisterna',
+		year: '1997',
+		image: ac2470,
+		badge: 'Cisterna',
+		badgeColor: 'bg-orange-600',
+		specs: [
+			{ label: 'Znamka', value: 'TAM 260' },
+			{ label: 'Kapaciteta vode', value: '7.000 L' },
+			{ label: 'Črpalka', value: '2.400 L/min' },
+			{ label: 'Posadka', value: '1+3' },
+		],
+		description: 'Velika avtocisterna za zagotavljanje zalog vode na terenu. Nezamenljiva pri požarih na območjih brez hidrantnega omrežja ter pri dolgotrajnih intervencijah.',
+	},
+];
 ---
 
-<Layout title="Vozila | PGD Tolmin">
-	<div class="px-4 py-10">
-		<div class="max-w-7xl mx-auto">
-			<h1 class="m-0 text-3xl md:text-4xl font-bold text-gray-900">Vozila</h1>
+<Layout
+	title="Vozila | PGD Tolmin"
+	description="Gasilska vozila PGD Tolmin – tehnični podatki in oprema."
+>
+	<!-- Page hero -->
+	<div class="relative bg-stone-900 overflow-hidden">
+		<!-- Diagonal red accent -->
+		<div class="absolute inset-0 pointer-events-none">
+			<div class="absolute -top-20 -right-20 w-96 h-96 bg-red-600/20 rounded-full blur-3xl"></div>
+			<div class="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-red-600 to-transparent"></div>
+		</div>
 
-			<section class="mt-8 grid gap-8 md:grid-cols-2 items-start">
+		<div class="max-w-7xl mx-auto px-6 py-16 relative">
+			<div class="flex items-end gap-6">
 				<div>
-					<Image
-						src={gvc1}
-						alt="GVC-1"
-						class="w-full h-auto rounded-lg shadow"
-						widths={[640, 768, 1024, 1280]}
-						sizes="(min-width: 768px) 50vw, 100vw"
-					/>
+					<p class="text-red-500 text-xs font-bold tracking-[0.25em] uppercase mb-3">PGD Tolmin</p>
+					<h1 class="text-5xl md:text-7xl font-black text-white leading-none tracking-tight">
+						Vozila
+					</h1>
 				</div>
+				<div class="hidden md:block mb-2 ml-auto text-right">
+					<p class="text-stone-400 text-sm">{vehicles.length} vozili v floti</p>
+					<p class="text-stone-500 text-xs mt-1">Posodobljeno 2024</p>
+				</div>
+			</div>
+		</div>
+	</div>
 
-				<div class="prose max-w-none">
-					<h2>GVC-1</h2>
-					<p>Opis vozila GVC-1, oprema, tehnični podatki...</p>
-				</div>
-			</section>
+	<!-- Vehicle list -->
+	<div class="bg-stone-50 min-h-screen">
+		<div class="max-w-7xl mx-auto px-6 py-16 space-y-24">
+			{vehicles.map((v, i) => (
+				<article
+					id={v.id}
+					class="vehicle-card scroll-mt-24"
+					style={`animation-delay: ${i * 150}ms`}
+				>
+					<!-- Vehicle number + name header -->
+					<div class="flex items-baseline gap-4 mb-8 pb-4 border-b-2 border-stone-200">
+						<span class="text-7xl font-black text-stone-200 leading-none select-none">
+							{String(i + 1).padStart(2, '0')}
+						</span>
+						<div>
+							<div class="flex items-center gap-3 mb-1">
+								<h2 class="text-3xl md:text-4xl font-black text-stone-900 tracking-tight">
+									{v.name}
+								</h2>
+								<span class={`${v.badgeColor} text-white text-xs font-bold px-2.5 py-1 rounded uppercase tracking-wider`}>
+									{v.badge}
+								</span>
+							</div>
+							<p class="text-stone-500 text-sm font-medium tracking-wide uppercase">
+								{v.fullName} · {v.year}
+							</p>
+						</div>
+					</div>
 
-			<section class="mt-12 grid gap-8 md:grid-cols-2 items-start">
-				<div>
-					<Image
-						src={ac2470}
-						alt="AC-2470"
-						class="w-full h-auto rounded-lg shadow"
-						widths={[640, 768, 1024, 1280]}
-						sizes="(min-width: 768px) 50vw, 100vw"
-					/>
-				</div>
+					<!-- Image + content grid -->
+					<div class="grid md:grid-cols-5 gap-8 md:gap-12 items-start">
 
-				<div class="prose max-w-none">
-					<h2>AC-24/70</h2>
-					<p>Opis vozila AC-24/70, oprema, tehnični podatki...</p>
-				</div>
-			</section>
+						<!-- Image: takes 3/5 on desktop -->
+						<div class="md:col-span-3 group relative overflow-hidden rounded-xl shadow-2xl shadow-stone-900/20">
+							<Image
+								src={v.image}
+								alt={v.name}
+								class="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-105"
+								widths={[640, 900, 1200]}
+								sizes="(min-width: 768px) 60vw, 100vw"
+							/>
+							<!-- Subtle gradient overlay at bottom -->
+							<div class="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/40 to-transparent pointer-events-none"></div>
+							<div class="absolute bottom-4 left-4">
+								<span class="text-white/90 text-xs font-semibold tracking-widest uppercase bg-black/30 backdrop-blur-sm px-3 py-1 rounded-full">
+									{v.name}
+								</span>
+							</div>
+						</div>
+
+						<!-- Specs + description: takes 2/5 on desktop -->
+						<div class="md:col-span-2 space-y-8">
+							<!-- Description -->
+							<p class="text-stone-600 leading-relaxed text-base">
+								{v.description}
+							</p>
+
+							<!-- Specs table -->
+							<div>
+								<p class="text-xs font-bold tracking-[0.2em] uppercase text-stone-400 mb-4">
+									Tehnični podatki
+								</p>
+								<dl class="space-y-0 divide-y divide-stone-200 border border-stone-200 rounded-lg overflow-hidden">
+									{v.specs.map((spec) => (
+										<div class="flex items-center justify-between px-4 py-3 bg-white hover:bg-stone-50 transition-colors">
+											<dt class="text-xs font-semibold text-stone-500 uppercase tracking-wide">
+												{spec.label}
+											</dt>
+											<dd class="text-sm font-bold text-stone-900 tabular-nums">
+												{spec.value}
+											</dd>
+										</div>
+									))}
+								</dl>
+							</div>
+
+							<!-- Red accent bar -->
+							<div class="flex items-center gap-3">
+								<div class="h-px flex-1 bg-stone-200"></div>
+								<div class="w-8 h-1 bg-red-600 rounded-full"></div>
+								<div class="h-px flex-1 bg-stone-200"></div>
+							</div>
+						</div>
+					</div>
+				</article>
+			))}
 		</div>
 	</div>
 </Layout>
+
+<style>
+	.vehicle-card {
+		opacity: 0;
+		transform: translateY(24px);
+		animation: fadeUp 0.6s ease-out forwards;
+	}
+
+	@keyframes fadeUp {
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+</style>

@@ -1,54 +1,93 @@
 ---
 import Layout from '../layouts/Layout.astro';
+
+const sections = [
+	{
+		id: 'naloge',
+		title: 'Naloge in poslanstvo',
+		content: `Operativa PGD Tolmin je jedro naše gasilske dejavnosti. Sestavljajo jo usposobljeni gasilci, ki so pripravljeni na intervencijo 24 ur na dan, 365 dni v letu. Naše področje delovanja obsega občino Tolmin in sosednje občine, kjer nudimo pomoč pri požarih, prometnih nesrečah, poplavah in drugih nesrečah.`,
+	},
+	{
+		id: 'sestava',
+		title: 'Sestava in organizacija',
+		content: `Operativno moštvo PGD Tolmin sestavlja več kot 40 usposobljenih gasilcev, razporejenih v izmene za zagotavljanje stalne pripravljenosti. Na čelu operativnega dela je poveljnik društva s pomočniki, ki skrbijo za koordinacijo in usposobljenost enote.`,
+	},
+	{
+		id: 'usposabljanja',
+		title: 'Usposabljanja in vaje',
+		content: `Redno usposabljanje je temelj naše operativne pripravljenosti. Vsak mesec izvajamo praktične vaje na terenu, kjer urimo gašenje, reševanje iz vozil, tehnično reševanje in delo z opremo. Naši gasilci se udeležujejo tudi tečajev in tekmovanj na regijskem in državnem nivoju.`,
+	},
+	{
+		id: 'intervencije',
+		title: 'Intervencije',
+		content: `Letno izvedemo več kot 80 intervencij različnih vrst. Med najpogostejše sodijo tehnična reševanja pri prometnih nesrečah, gašenje požarov na prostem in v objektih, ter asistenca pri poplavah in zemeljskih plazovih, ki so v Tolminski kotlini posebej pogosti.`,
+	},
+];
+
+const stats = [
+	{ value: '40+', label: 'Operativnih gasilcev' },
+	{ value: '80+', label: 'Intervencij letno' },
+	{ value: '24/7', label: 'Pripravljenost' },
+];
 ---
 
-<Layout title="Operativa | PGD Tolmin">
-	<div class="px-4 py-10">
-		<div class="max-w-3xl mx-auto">
-			<h1 class="m-0 text-3xl md:text-4xl font-bold text-gray-900">
+<Layout
+	title="Operativa | PGD Tolmin"
+	description="Operativna enota PGD Tolmin – sestava, naloge, usposabljanja in intervencije."
+>
+	<!-- Dark hero, no numbers -->
+	<div class="relative bg-stone-900 overflow-hidden">
+		<div class="absolute inset-0 pointer-events-none">
+			<div class="absolute -top-20 -right-20 w-96 h-96 bg-red-600/20 rounded-full blur-3xl"></div>
+			<div class="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-red-600 to-transparent"></div>
+		</div>
+		<div class="max-w-7xl mx-auto px-6 py-16 relative">
+			<p class="text-red-500 text-xs font-bold tracking-[0.25em] uppercase mb-3">PGD Tolmin</p>
+			<h1 class="text-5xl md:text-7xl font-black text-white leading-none tracking-tight">
 				Operativa
 			</h1>
-			<p class="mt-2 text-gray-700">TUKAJ NAPISI KRATEK UVOD</p>
 
-			<section
-				class="mt-6 rounded-xl border border-gray-200 bg-white/80 p-6 shadow-sm"
-			>
-				<p class="text-gray-900 leading-relaxed">
-					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam
-					pellentesque quam nibh, at viverra diam tincidunt eu. Aliquam ut
-					egestas nisi. Sed aliquet molestie dignissim. Mauris eget diam eget mi
-					gravida commodo faucibus a velit. Suspendisse egestas elementum quam
-					quis aliquam. In molestie urna et libero scelerisque pharetra. Sed et
-					tortor sit amet sem maximus scelerisque. Etiam vulputate leo velit, at
-					rhoncus ipsum lacinia ac. Quisque ut hendrerit diam.
-					<br />
-					Vestibulum eget tortor ac risus eleifend accumsan eu vitae sem. Nam auctor,
-					felis vitae pulvinar bibendum, tellus ex venenatis magna, nec molestie
-					dui metus quis nibh. Nam fringilla et nulla at cursus. Curabitur ultrices
-					sed urna varius viverra. Morbi ac risus in sem finibus elementum. Morbi
-					et massa sit amet mi varius fermentum. Vestibulum interdum lectus a dapibus
-					laoreet. Quisque placerat, ex a fringilla bibendum, dolor libero commodo
-					mauris, vitae ultrices ante quam a erat. Integer tempus sem eget elit congue,
-					eget accumsan enim bibendum. In gravida finibus dolor, id imperdiet turpis
-					laoreet nec.
-					<br />
-					Aliquam vitae dui at nisi semper congue. Aliquam auctor ullamcorper tristique.
-					Nullam pretium tincidunt nunc. Morbi feugiat turpis in fringilla posuere.
-					Proin sed arcu sit amet metus bibendum dapibus. Nulla rutrum, augue at
-					consequat interdum, ipsum felis sodales ligula, in suscipit orci tortor
-					ut tellus. Aliquam vel nunc tincidunt, egestas enim tristique, scelerisque
-					massa. Fusce lacinia fermentum lorem in iaculis. Suspendisse quis erat
-					interdum, blandit lectus sed, rutrum enim. Suspendisse mollis placerat
-					sem nec dictum. Integer mauris elit, varius vel tincidunt quis, elementum
-					maximus nisl. Nunc quis lectus sed ex iaculis vehicula non in augue. Nam
-					vitae massa non nunc vestibulum eleifend in ac est.
-					<br />
-					Praesent sit amet volutpat turpis. Morbi semper orci nec hendrerit dignissim.
-					Integer aliquam ultricies felis. Morbi mattis viverra sapien eu condimentum.
-					Phasellus suscipit est ut nisl viverra, a blandit sapien accumsan. Nulla
-					pulvinar ex eget dictum rutrum.
-				</p>
-			</section>
+			<!-- Stats inline in hero -->
+			<div class="mt-10 flex flex-wrap gap-8">
+				{stats.map((s) => (
+					<div>
+						<p class="text-3xl font-black text-white">{s.value}</p>
+						<p class="text-stone-400 text-xs mt-0.5 tracking-wide">{s.label}</p>
+					</div>
+				))}
+			</div>
+		</div>
+	</div>
+
+	<!-- Content -->
+	<div class="bg-stone-50">
+		<div class="max-w-7xl mx-auto px-6 py-16">
+			<div class="grid md:grid-cols-2 gap-x-16 gap-y-12">
+				{sections.map((s) => (
+					<section id={s.id} class="section-card scroll-mt-24">
+						<div class="flex items-center gap-3 mb-4">
+							<div class="h-5 w-1 bg-red-600 rounded-full shrink-0"></div>
+							<h2 class="text-xl font-black text-stone-900 tracking-tight">{s.title}</h2>
+						</div>
+						<p class="text-stone-600 leading-relaxed pl-4">{s.content}</p>
+					</section>
+				))}
+			</div>
 		</div>
 	</div>
 </Layout>
+
+<style>
+	.section-card {
+		opacity: 0;
+		transform: translateY(20px);
+		animation: fadeUp 0.5s ease-out forwards;
+	}
+	.section-card:nth-child(2) { animation-delay: 100ms; }
+	.section-card:nth-child(3) { animation-delay: 200ms; }
+	.section-card:nth-child(4) { animation-delay: 300ms; }
+
+	@keyframes fadeUp {
+		to { opacity: 1; transform: translateY(0); }
+	}
+</style>

@@ -5,6 +5,9 @@ import Footer from '../components/Footer.astro';
 
 interface Props {
 	title: string;
+	description?: string;
+	ogImage?: string;
+	lang?: string;
 	fullBleed?: boolean;
 	hideFooter?: boolean;
 	bodyClass?: string;
@@ -13,37 +16,82 @@ interface Props {
 
 const {
 	title,
+	description = 'PGD Tolmin – Prostovoljno gasilsko društvo, ki skrbi za varnost skupnosti v Tolminu in okolici.',
+	ogImage = '/og-default.jpg',
+	lang = 'sl',
 	fullBleed = false,
 	hideFooter = true,
-	bodyClass = 'bg-stone-300',
+	bodyClass = '',
 	viewportFit = false,
 } = Astro.props;
+
+const siteURL = Astro.site ?? new URL('http://localhost:4321');
+const canonicalURL = new URL(Astro.url.pathname, siteURL);
+const ogImageURL = new URL(ogImage, siteURL);
 ---
 
 <!doctype html>
-<html lang="sl">
+<html lang={lang}>
 	<head>
 		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+		<!-- Viewport: FIX - was missing initial-scale=1 on non-viewportFit variant -->
 		<meta
 			name="viewport"
 			content={viewportFit
 				? 'width=device-width, initial-scale=1, viewport-fit=cover'
-				: 'width=device-width'}
+				: 'width=device-width, initial-scale=1'}
 		/>
+
+		<!-- Favicons -->
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+		<!-- Theme color for Android Chrome status bar -->
+		<meta name="theme-color" content="#dc2626" />
+
+		<!-- Sitemap -->
+		<link rel="sitemap" href="/sitemap-index.xml" />
+
+		<!-- Canonical -->
+		<link rel="canonical" href={canonicalURL} />
+
+		<!-- Primary meta -->
 		<meta name="generator" content={Astro.generator} />
+		<meta name="description" content={description} />
+		<title>{title}</title>
+
+		<!-- Open Graph -->
+		<meta property="og:type" content="website" />
+		<meta property="og:url" content={canonicalURL} />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:image" content={ogImageURL} />
+		<meta property="og:locale" content="sl_SI" />
+		<meta property="og:site_name" content="PGD Tolmin" />
+
+		<!-- Twitter / X card -->
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content={title} />
+		<meta name="twitter:description" content={description} />
+		<meta name="twitter:image" content={ogImageURL} />
+
+		<!-- Fonts: preconnect first, then load -->
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 		<link
-			href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap"
+			href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:wght@400;600&display=swap"
 			rel="stylesheet"
 		/>
-		<title>{title}</title>
+
+		<!-- Page-specific head content (scripts, structured data, etc.) -->
+		<slot name="head" />
 	</head>
 	<body class:list={['m-0', fullBleed ? 'overflow-x-hidden' : '', bodyClass]}>
 		{
 			fullBleed ? (
-				<div class="absolute inset-x-0 top-0 z-50">
+				<!-- FIX: fixed instead of absolute so navbar stays visible on scroll -->
+				<div class="fixed inset-x-0 top-0 z-50">
 					<Navbar />
 				</div>
 			) : (

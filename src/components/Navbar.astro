@@ -1,17 +1,15 @@
 ---
-import '../styles/global.css';
-
 import logo from '../images/logo.png';
 
 type NavItem = {
 	name: string;
 	href?: string;
-	active?: boolean;
 	children?: NavItem[];
 };
 
+// FIX: moved to a single flat config — split is a layout concern, not a data concern
 const navItemsLeft: NavItem[] = [
-	{ name: 'Domov', href: '/', active: true },
+	{ name: 'Domov', href: '/' },
 	{
 		name: 'Predstavitev',
 		children: [
@@ -30,345 +28,386 @@ const navItemsRight: NavItem[] = [
 ];
 
 const allItems = [...navItemsLeft, ...navItemsRight];
+
+// FIX: active link detection
+const currentPath = Astro.url.pathname;
+
+const isActive = (href?: string) => {
+	if (!href) return false;
+	if (href === '/') return currentPath === '/';
+	return currentPath.startsWith(href);
+};
 ---
 
 <nav
 	id="navbar"
-	class="bg-gray-200 text-black shadow-sm border-b border-gray-300 fixed top-0 left-0 right-0 z-50 transition-transform duration-300"
+	class="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
+	data-scrolled="false"
 >
-	<div class="max-w-7xl mx-auto px-4">
+	<!-- FIX: transparent-to-solid background handled by JS scroll state via data attribute -->
+	<!-- Bottom red accent line -->
+	<div class="absolute bottom-0 left-0 right-0 h-[2px] bg-red-600 z-10"></div>
+
+	<div class="max-w-7xl mx-auto px-4 relative z-10">
+
 		<!-- Mobile header -->
-		<div class="grid grid-cols-3 md:hidden items-center h-20">
+		<div class="grid grid-cols-3 md:hidden items-center h-16">
 			<div></div>
 			<a href="/" aria-label="Domov" class="justify-self-center">
-				<img src={logo.src} alt="Logo" class="h-16 w-auto" />
+				<img src={logo.src} alt="PGD Tolmin logo" class="h-12 w-auto" />
 			</a>
+			<!-- FIX: aria-hidden toggled by JS; focus ring added -->
 			<button
 				id="mobile-menu-button"
 				type="button"
-				class="justify-self-end inline-flex items-center justify-center p-2 rounded-md text-black hover:text-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-600"
+				class="justify-self-end inline-flex items-center justify-center p-2 rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-offset-1"
 				aria-controls="mobile-menu"
 				aria-expanded="false"
+				aria-label="Odpri meni"
 			>
-				<span class="sr-only">Open main menu</span>
-				<!-- Hamburger -->
-				<svg
-					id="icon-menu"
-					class="h-7 w-7"
-					viewBox="0 0 24 24"
-					fill="none"
-					stroke="currentColor"
-					stroke-width="2"
-				>
-					<path
-						stroke-linecap="round"
-						stroke-linejoin="round"
-						d="M4 6h16M4 12h16M4 18h16"></path>
+				<svg id="icon-menu" class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+					<path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
 				</svg>
-				<!-- Close -->
-				<svg
-					id="icon-close"
-					class="h-7 w-7 hidden"
-					viewBox="0 0 24 24"
-					fill="none"
-					stroke="currentColor"
-					stroke-width="2"
-				>
-					<path
-						stroke-linecap="round"
-						stroke-linejoin="round"
-						d="M6 18L18 6M6 6l12 12"></path>
+				<svg id="icon-close" class="h-6 w-6 hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+					<path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
 				</svg>
 			</button>
 		</div>
 
 		<!-- Desktop navbar -->
-		<div
-			class="hidden md:flex items-center justify-between h-20 flex-nowrap gap-8"
-		>
-			<ul
-				class="flex flex-nowrap items-center space-x-8 text-lg font-medium whitespace-nowrap"
-			>
-				{
-					navItemsLeft.map((item) => (
-						<li class={item.children ? 'relative group' : ''}>
-							{item.children ? (
-								<span class="inline-flex items-center gap-1 text-black hover:text-red-600 transition-colors duration-200 cursor-default">
-									{item.name}
-									<svg
-										class="h-4 w-4 transition-transform group-hover:rotate-180"
-										viewBox="0 0 24 24"
-										fill="none"
-										stroke="currentColor"
-										stroke-width="2"
-									>
-										<path
-											stroke-linecap="round"
-											stroke-linejoin="round"
-											d="M6 9l6 6 6-6"
-										/>
-									</svg>
-								</span>
-							) : (
-								<a
-									href={item.href}
-									class="block w-full py-2 sm:py-3 px-2 text-black hover:text-red-600 transition-colors duration-200 text-left"
-								>
-									{item.name}
-								</a>
-							)}
+		<div class="hidden md:flex items-center justify-between h-16 flex-nowrap gap-8">
 
-							{item.children && (
-								<div class="absolute left-0 top-full pt-2 z-50 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 ease-out transform translate-y-2 group-hover:translate-y-0">
-									<ul class="w-56 bg-white border border-gray-200 rounded-md shadow-lg py-2">
-										{item.children.map((child) => (
-											<li>
-												<a
-													href={child.href}
-													class="block px-4 py-2 text-sm text-black hover:text-red-600 hover:bg-gray-50"
-												>
-													{child.name}
-												</a>
-											</li>
-										))}
-									</ul>
-								</div>
-							)}
-						</li>
-					))
-				}
+			<!-- Left nav -->
+			<ul class="flex flex-nowrap items-center gap-6 text-sm font-semibold tracking-wide uppercase whitespace-nowrap">
+				{navItemsLeft.map((item, idx) => (
+					<li class={item.children ? 'relative group' : ''}>
+						{item.children ? (
+							/* FIX: button instead of span for keyboard accessibility */
+							<button
+								type="button"
+								class="inline-flex items-center gap-1 transition-colors duration-200 cursor-pointer focus:outline-none focus:ring-2 focus:ring-red-600 rounded nav-link"
+								aria-haspopup="true"
+								aria-expanded="false"
+								aria-controls={`dropdown-${idx}`}
+							>
+								{item.name}
+								<svg class="h-3.5 w-3.5 transition-transform duration-200 group-hover:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+									<path stroke-linecap="round" stroke-linejoin="round" d="M6 9l6 6 6-6" />
+								</svg>
+							</button>
+						) : (
+							<a
+								href={item.href}
+								class:list={[
+									'relative py-1 transition-colors duration-200 nav-link focus:outline-none focus:ring-2 focus:ring-red-600 rounded',
+									'after:absolute after:bottom-0 after:left-0 after:h-[2px] after:bg-red-600 after:transition-all after:duration-200',
+									isActive(item.href)
+										? 'text-red-600 after:w-full'
+										: 'after:w-0 hover:after:w-full'
+								]}
+							>
+								{item.name}
+							</a>
+						)}
+
+						{item.children && (
+							<div
+								id={`dropdown-${idx}`}
+								class="absolute left-0 top-full pt-3 z-50 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 ease-out translate-y-1 group-hover:translate-y-0 scale-95 group-hover:scale-100"
+								role="menu"
+							>
+								<ul class="w-52 bg-white border-t-2 border-red-600 rounded-b-lg shadow-xl py-1">
+									{item.children.map((child) => (
+										<li role="none">
+											<a
+												href={child.href}
+												role="menuitem"
+												class:list={[
+													'block px-4 py-2.5 text-sm transition-colors duration-150',
+													isActive(child.href)
+														? 'text-red-600 bg-red-50 font-semibold'
+														: 'text-stone-700 hover:text-red-600 hover:bg-stone-50'
+												]}
+											>
+												{child.name}
+											</a>
+										</li>
+									))}
+								</ul>
+							</div>
+						)}
+					</li>
+				))}
 			</ul>
 
 			<!-- Center logo -->
-			<a href="/" aria-label="Domov" class="shrink-0 flex justify-center">
-				<img src={logo.src} alt="Logo" class="h-20 w-auto" />
+			<a href="/" aria-label="Domov" class="shrink-0 flex justify-center focus:outline-none focus:ring-2 focus:ring-red-600 rounded">
+				<!-- FIX: reduced from h-20 (fills full bar) to h-12 with breathing room -->
+				<img src={logo.src} alt="PGD Tolmin logo" class="h-12 w-auto" />
 			</a>
 
-			<ul
-				class="flex flex-nowrap items-center space-x-8 text-lg font-medium whitespace-nowrap"
-			>
-				{
-					navItemsRight.map((item) => (
-						<li class={item.children ? 'relative group' : ''}>
-							{item.children ? (
-								<span class="inline-flex items-center gap-1 text-black hover:text-red-600 transition-colors duration-200 cursor-default">
-									{item.name}
-									<svg
-										class="h-4 w-4 transition-transform group-hover:rotate-180"
-										viewBox="0 0 24 24"
-										fill="none"
-										stroke="currentColor"
-										stroke-width="2"
-									>
-										<path
-											stroke-linecap="round"
-											stroke-linejoin="round"
-											d="M6 9l6 6 6-6"
-										/>
-									</svg>
-								</span>
-							) : (
-								<a
-									href={item.href}
-									class="inline-flex items-center gap-1 text-black hover:text-red-600 transition-colors duration-200"
-								>
-									{item.name}
-								</a>
-							)}
+			<!-- Right nav -->
+			<ul class="flex flex-nowrap items-center gap-6 text-sm font-semibold tracking-wide uppercase whitespace-nowrap">
+				{navItemsRight.map((item, idx) => (
+					<li class={item.children ? 'relative group' : ''}>
+						{item.children ? (
+							<button
+								type="button"
+								class="inline-flex items-center gap-1 transition-colors duration-200 cursor-pointer focus:outline-none focus:ring-2 focus:ring-red-600 rounded nav-link"
+								aria-haspopup="true"
+								aria-expanded="false"
+								aria-controls={`dropdown-right-${idx}`}
+							>
+								{item.name}
+								<svg class="h-3.5 w-3.5 transition-transform duration-200 group-hover:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+									<path stroke-linecap="round" stroke-linejoin="round" d="M6 9l6 6 6-6" />
+								</svg>
+							</button>
+						) : (
+							<a
+								href={item.href}
+								class:list={[
+									'relative py-1 transition-colors duration-200 nav-link focus:outline-none focus:ring-2 focus:ring-red-600 rounded',
+									'after:absolute after:bottom-0 after:left-0 after:h-[2px] after:bg-red-600 after:transition-all after:duration-200',
+									isActive(item.href)
+										? 'text-red-600 after:w-full'
+										: 'after:w-0 hover:after:w-full'
+								]}
+							>
+								{item.name}
+							</a>
+						)}
 
-							{item.children && (
-								<div class="absolute left-0 top-full pt-2 z-50 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 ease-out transform translate-y-2 group-hover:translate-y-0">
-									<ul class="w-56 bg-white border border-gray-200 rounded-md shadow-lg py-2">
-										{item.children.map((child) => (
-											<li>
-												<a
-													href={child.href}
-													class="block px-4 py-2 text-sm text-black hover:text-red-600 hover:bg-gray-50"
-												>
-													{child.name}
-												</a>
-											</li>
-										))}
-									</ul>
-								</div>
-							)}
-						</li>
-					))
-				}
-			</ul>
-		</div>
-
-		<!-- Mobile menu panel -->
-		<div
-			id="mobile-menu"
-			class="md:hidden border-t border-transparent overflow-hidden max-h-0 opacity-0 -translate-y-2 transition-all duration-300 ease-out pointer-events-none"
-		>
-			<div class="mobile-menu-inner pt-2 pb-4 sm:pt-3 sm:pb-6 px-2">
-				<ul class="space-y-1 sm:space-y-2 text-lg sm:text-xl font-medium">
-					{
-						allItems.map((item, idx) => (
-							<li>
-								{item.children ? (
-									<>
-										<button
-											type="button"
-											class="w-full flex items-center justify-between py-2 sm:py-3 px-2 text-black hover:text-red-600 text-left"
-											aria-controls={`submenu-${idx}`}
-											aria-expanded="false"
-										>
-											<span>{item.name}</span>
-											<svg
-												class="h-5 w-5 transition-transform"
-												data-chevron={`submenu-${idx}`}
-												viewBox="0 0 24 24"
-												fill="none"
-												stroke="currentColor"
-												stroke-width="2"
+						{item.children && (
+							<div
+								id={`dropdown-right-${idx}`}
+								class="absolute right-0 top-full pt-3 z-50 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 ease-out translate-y-1 group-hover:translate-y-0 scale-95 group-hover:scale-100"
+								role="menu"
+							>
+								<ul class="w-52 bg-white border-t-2 border-red-600 rounded-b-lg shadow-xl py-1">
+									{item.children.map((child) => (
+										<li role="none">
+											<a
+												href={child.href}
+												role="menuitem"
+												class:list={[
+													'block px-4 py-2.5 text-sm transition-colors duration-150',
+													isActive(child.href)
+														? 'text-red-600 bg-red-50 font-semibold'
+														: 'text-stone-700 hover:text-red-600 hover:bg-stone-50'
+												]}
 											>
-												<path
-													stroke-linecap="round"
-													stroke-linejoin="round"
-													d="M6 9l6 6 6-6"
-												/>
-											</svg>
-										</button>
-										<ul
-											id={`submenu-${idx}`}
-											class="pl-4 space-y-1 overflow-hidden opacity-0 transform -translate-y-1 transition-all duration-300 ease-out"
-											style="max-height: 0px;"
-										>
-											{item.children.map((child) => (
-												<li>
-													<a
-														href={child.href}
-														class="block py-1 sm:py-2 px-2 text-sm sm:text-base text-black hover:text-red-600 text-left transition-colors"
-													>
-														{child.name}
-													</a>
-												</li>
-											))}
-										</ul>
-									</>
-								) : (
-									<a
-										href={item.href}
-										class="block w-full py-2 sm:py-3 px-2 text-black hover:text-red-600 transition-colors duration-200 text-left"
-									>
-										{item.name}
-									</a>
-								)}
-							</li>
-						))
-					}
-				</ul>
-			</div>
+												{child.name}
+											</a>
+										</li>
+									))}
+								</ul>
+							</div>
+						)}
+					</li>
+				))}
+			</ul>
 		</div>
 	</div>
 
-	<script is:inline>
-		// Scroll behavior
-		let lastScroll = 0;
-		const navbar = document.getElementById('navbar');
+	<!-- Mobile menu panel -->
+	<!-- FIX: aria-hidden toggled by JS -->
+	<div
+		id="mobile-menu"
+		aria-hidden="true"
+		class="md:hidden overflow-hidden max-h-0 transition-all duration-300 ease-out pointer-events-none"
+	>
+		<div id="mobile-menu-inner" class="px-4 pt-2 pb-5 border-t border-stone-200 space-y-1">
+			{allItems.map((item, idx) => (
+				<div>
+					{item.children ? (
+						<>
+							<button
+								type="button"
+								class="w-full flex items-center justify-between py-2.5 px-2 text-sm font-semibold tracking-wide uppercase transition-colors focus:outline-none focus:ring-2 focus:ring-red-600 rounded nav-link"
+								aria-controls={`mobile-submenu-${idx}`}
+								aria-expanded="false"
+							>
+								<span>{item.name}</span>
+								<svg
+									data-chevron={`mobile-submenu-${idx}`}
+									class="h-4 w-4 transition-transform duration-200"
+									viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+								>
+									<path stroke-linecap="round" stroke-linejoin="round" d="M6 9l6 6 6-6" />
+								</svg>
+							</button>
+							<ul
+								id={`mobile-submenu-${idx}`}
+								class="pl-3 space-y-0.5 overflow-hidden transition-all duration-300 ease-out"
+								style="max-height: 0px;"
+								aria-hidden="true"
+							>
+								{item.children.map((child) => (
+									<li>
+										<a
+											href={child.href}
+											class:list={[
+												'block py-2 px-2 text-sm rounded transition-colors',
+												isActive(child.href)
+													? 'text-red-600 font-semibold'
+													: 'text-stone-600 hover:text-red-600'
+											]}
+										>
+											{child.name}
+										</a>
+									</li>
+								))}
+							</ul>
+						</>
+					) : (
+						<a
+							href={item.href}
+							class:list={[
+								'block py-2.5 px-2 text-sm font-semibold tracking-wide uppercase rounded transition-colors nav-link',
+								isActive(item.href) ? 'text-red-600' : 'hover:text-red-600'
+							]}
+						>
+							{item.name}
+						</a>
+					)}
+				</div>
+			))}
+		</div>
+	</div>
+</nav>
 
-		window.addEventListener('scroll', () => {
-			const currentScroll = window.pageYOffset;
+<script is:inline>
+	const navbar = document.getElementById('navbar');
+	const btn = document.getElementById('mobile-menu-button');
+	const menu = document.getElementById('mobile-menu');
+	const menuInner = document.getElementById('mobile-menu-inner');
+	const iconMenu = document.getElementById('icon-menu');
+	const iconClose = document.getElementById('icon-close');
 
-			if (currentScroll <= 0) {
-				// At the top
-				navbar?.classList.remove('-translate-y-full');
-			} else if (currentScroll > lastScroll && currentScroll > 100) {
-				// Scrolling down & past threshold
-				navbar?.classList.add('-translate-y-full');
-			} else if (currentScroll < lastScroll) {
-				// Scrolling up
-				navbar?.classList.remove('-translate-y-full');
+	// ── Scroll: transparent-to-solid + hide-on-scroll-down ──────────────────
+	let lastScroll = 0;
+
+	// Detect full-bleed pages by the overflow-x-hidden class Layout puts on body
+	const isFullBleed = document.body.classList.contains('overflow-x-hidden');
+
+	const setSolid = () => {
+		navbar.style.backgroundColor = '#fafaf9';
+		navbar.style.boxShadow = '0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)';
+		navbar.querySelectorAll('.nav-link').forEach(el => {
+			el.classList.add('text-stone-800');
+			el.classList.remove('text-white');
+		});
+	};
+
+	const setTransparent = () => {
+		navbar.style.backgroundColor = 'transparent';
+		navbar.style.boxShadow = 'none';
+		navbar.querySelectorAll('.nav-link').forEach(el => {
+			el.classList.add('text-white');
+			el.classList.remove('text-stone-800');
+		});
+	};
+
+	const applyScrollState = () => {
+		const y = window.scrollY;
+
+		if (!isFullBleed) {
+			// Non-hero pages: always solid, never transparent
+			setSolid();
+		} else {
+			// Full-bleed hero pages: transparent at top, solid when scrolled
+			if (y > 60) {
+				setSolid();
+			} else {
+				setTransparent();
+			}
+		}
+
+		// Hide on scroll down past 100px, show on scroll up
+		if (y <= 0) {
+			navbar.classList.remove('-translate-y-full');
+		} else if (y > lastScroll && y > 100) {
+			navbar.classList.add('-translate-y-full');
+		} else if (y < lastScroll) {
+			navbar.classList.remove('-translate-y-full');
+		}
+
+		lastScroll = y;
+	};
+
+	window.addEventListener('scroll', applyScrollState, { passive: true });
+	applyScrollState(); // runs immediately — no flash
+
+	// ── Mobile menu toggle ───────────────────────────────────────────────────
+	const openMenu = () => {
+		btn.setAttribute('aria-expanded', 'true');
+		menu.setAttribute('aria-hidden', 'false');
+		menu.classList.add('pointer-events-auto');
+		menu.style.maxHeight = menuInner.scrollHeight + 'px';
+		iconMenu.classList.add('hidden');
+		iconClose.classList.remove('hidden');
+	};
+
+	const closeMenu = () => {
+		btn.setAttribute('aria-expanded', 'false');
+		menu.setAttribute('aria-hidden', 'true');
+		menu.classList.remove('pointer-events-auto');
+		menu.style.maxHeight = '0px';
+		iconMenu.classList.remove('hidden');
+		iconClose.classList.add('hidden');
+	};
+
+	btn?.addEventListener('click', () => {
+		btn.getAttribute('aria-expanded') === 'true' ? closeMenu() : openMenu();
+	});
+
+	// ── Mobile submenus ──────────────────────────────────────────────────────
+	menu?.querySelectorAll('button[aria-controls]').forEach((toggleBtn) => {
+		toggleBtn.addEventListener('click', () => {
+			const id = toggleBtn.getAttribute('aria-controls');
+			const panel = document.getElementById(id);
+			const expanded = toggleBtn.getAttribute('aria-expanded') === 'true';
+			const chevron = menu.querySelector(`svg[data-chevron="${id}"]`);
+
+			toggleBtn.setAttribute('aria-expanded', String(!expanded));
+			panel?.setAttribute('aria-hidden', String(expanded));
+
+			if (!expanded) {
+				panel.style.maxHeight = panel.scrollHeight + 'px';
+				chevron?.classList.add('rotate-180');
+			} else {
+				panel.style.maxHeight = '0px';
+				chevron?.classList.remove('rotate-180');
 			}
 
-			lastScroll = currentScroll;
-		});
-
-		// Mobile menu toggle
-		const btn = document.getElementById('mobile-menu-button');
-		const menu = document.getElementById('mobile-menu');
-		const iconMenu = document.getElementById('icon-menu');
-		const iconClose = document.getElementById('icon-close');
-
-		btn?.addEventListener('click', () => {
-			const isOpen = btn.getAttribute('aria-expanded') === 'true';
-			btn.setAttribute('aria-expanded', String(!isOpen));
-			if (menu) {
-				const inner = menu.firstElementChild;
-				if (!isOpen) {
-					// Open with animation
-					menu.classList.remove(
-						'opacity-0',
-						'-translate-y-2',
-						'pointer-events-none',
-						'border-transparent',
-					);
-					menu.classList.add(
-						'opacity-100',
-						'translate-y-0',
-						'pointer-events-auto',
-						'border-gray-300',
-					);
-					if (inner) {
-						menu.style.maxHeight = inner.scrollHeight + 'px';
-					}
-				} else {
-					// Close with animation
-					menu.style.maxHeight = '0px';
-					menu.classList.remove(
-						'opacity-100',
-						'translate-y-0',
-						'pointer-events-auto',
-						'border-gray-300',
-					);
-					menu.classList.add(
-						'opacity-0',
-						'-translate-y-2',
-						'pointer-events-none',
-						'border-transparent',
-					);
+			// FIX: recalculate after a tick so submenu height is included
+			requestAnimationFrame(() => {
+				if (btn.getAttribute('aria-expanded') === 'true') {
+					menu.style.maxHeight = menuInner.scrollHeight + 'px';
 				}
-			}
-			iconMenu?.classList.toggle('hidden');
-			iconClose?.classList.toggle('hidden');
-		});
-
-		// Mobile submenu toggles with animation
-		menu?.querySelectorAll('button[aria-controls]').forEach((toggleBtn) => {
-			toggleBtn.addEventListener('click', () => {
-				const id = toggleBtn.getAttribute('aria-controls');
-				const panel = id ? document.getElementById(id) : null;
-				const expanded = toggleBtn.getAttribute('aria-expanded') === 'true';
-				toggleBtn.setAttribute('aria-expanded', String(!expanded));
-
-				if (panel) {
-					if (!expanded) {
-						// Expand
-						panel.style.maxHeight = panel.scrollHeight + 'px';
-						panel.classList.remove('opacity-0', '-translate-y-1');
-						panel.classList.add('opacity-100', 'translate-y-0');
-					} else {
-						// Collapse
-						panel.style.maxHeight = '0px';
-						panel.classList.remove('opacity-100', 'translate-y-0');
-						panel.classList.add('opacity-0', '-translate-y-1');
-					}
-					// Adjust mobile menu container height if open
-					const isMenuOpen = btn?.getAttribute('aria-expanded') === 'true';
-					if (menu && isMenuOpen) {
-						const inner = menu.firstElementChild;
-						if (inner) {
-							menu.style.maxHeight = inner.scrollHeight + 'px';
-						}
-					}
-				}
-
-				const chevron = menu.querySelector(`svg[data-chevron="${id}"]`);
-				chevron?.classList.toggle('rotate-180');
 			});
 		});
-	</script>
-</nav>
+	});
+
+	// ── Keyboard: dropdown buttons on desktop ────────────────────────────────
+	// FIX: Enter/Space opens dropdown for keyboard users
+	document.querySelectorAll('button[aria-haspopup]').forEach((dropBtn) => {
+		dropBtn.addEventListener('keydown', (e) => {
+			if (e.key === 'Enter' || e.key === ' ') {
+				e.preventDefault();
+				const li = dropBtn.closest('li');
+				li?.classList.toggle('group');
+			}
+		});
+	});
+</script>
+
+<style>
+	/* Default solid — JS makes it transparent only on full-bleed hero pages.
+	   This prevents white-text-on-white-background flash on normal pages. */
+	#navbar {
+		background-color: #fafaf9;
+		box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+	}
+</style>

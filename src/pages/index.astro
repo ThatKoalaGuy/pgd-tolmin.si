@@ -29,7 +29,7 @@ import qrCode from '../images/qr-code.png';
 		<div
 			class="absolute inset-0 z-40 flex items-center justify-center mb-24 sm:mb-0"
 		>
-			<div class="text-center px-4 sm:px-6">
+			<div class="text-center px-4 sm:px-6 animate-fade-in">
 				<h1
 					class="m-0 text-white text-4xl sm:text-6xl md:text-8xl font-bold drop-shadow-lg"
 				>
@@ -43,14 +43,32 @@ import qrCode from '../images/qr-code.png';
 			</div>
 		</div>
 
-		<!-- QR Code Blob - Bottom Left -->
+		<!-- Scroll hint chevron -->
 		<div
-			class="absolute z-40 hidden sm:block"
+			class="absolute bottom-6 left-1/2 -translate-x-1/2 z-40 hidden sm:flex flex-col items-center gap-1 text-white/60 animate-bounce pointer-events-none"
+		>
+			<svg
+				xmlns="http://www.w3.org/2000/svg"
+				class="h-6 w-6"
+				viewBox="0 0 24 24"
+				fill="none"
+				stroke="currentColor"
+				stroke-width="2"
+			>
+				<path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"
+				></path>
+			</svg>
+		</div>
+
+		<!-- QR Code Blob - Bottom Left (desktop) -->
+		<div
+			class="absolute z-40 hidden sm:block overflow-hidden"
 			style="left: max(1rem, env(safe-area-inset-left)); bottom: max(1rem, env(safe-area-inset-bottom));"
 		>
 			<div class="relative w-64 md:w-72 group">
+				<!-- Glow: overflow-hidden on parent clips this safely -->
 				<div
-					class="absolute inset-0 bg-red-600 rounded-full blur-2xl opacity-60 scale-110"
+					class="absolute inset-0 bg-red-600 rounded-full blur-2xl opacity-60"
 				>
 				</div>
 
@@ -62,9 +80,11 @@ import qrCode from '../images/qr-code.png';
 					>
 						Podprite nas in namenite 1% dohodnine PGD Tolmin! <br />
 						Poiščite nas pod davčno številko
-						<b
-							id="copy-tax-number"
-							class="text-lg sm:text-xl hover:text-red-600 cursor-pointer transition-colors inline-flex items-center gap-1"
+						<!-- FIX: <b> replaced with <button> for keyboard/a11y; unique id "copy-tax-number-desktop" -->
+						<button
+							id="copy-tax-number-desktop"
+							type="button"
+							class="text-lg sm:text-xl font-bold hover:text-red-600 cursor-pointer transition-colors inline-flex items-center gap-1 bg-transparent border-0 p-0"
 							title="Klikni za kopiranje"
 						>
 							19599056
@@ -81,14 +101,17 @@ import qrCode from '../images/qr-code.png';
 									d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
 								></path>
 							</svg>
-						</b>
-						<span id="copy-feedback" class="text-xs text-green-600 ml-1 hidden">
-							✓ Kopirano!
-						</span>
+						</button>
+						<!-- FIX: unique id "copy-feedback-desktop" -->
+						<span
+							id="copy-feedback-desktop"
+							class="text-xs text-green-600 ml-1 hidden">✓ Kopirano!</span
+						>
 					</p>
 					<a
 						href="https://edavki.durs.si/edavkiportal/OpenPortal/CommonPages/Opdynp/PageD.aspx?category=namenitev_dela_dohodnine_fo"
 						target="_blank"
+						rel="noopener noreferrer"
 						class="block transition-transform hover:scale-105"
 					>
 						<div class="flex justify-center">
@@ -104,8 +127,10 @@ import qrCode from '../images/qr-code.png';
 			</div>
 		</div>
 
+		<!-- Mobile FAB + Donation Panel -->
+		<!-- FIX: z-[60] instead of non-standard z-60 -->
 		<div
-			class="fixed bottom-16 left-4 z-60 sm:hidden"
+			class="fixed z-[60] sm:hidden"
 			style="bottom: max(4rem, env(safe-area-inset-bottom)); left: max(1rem, env(safe-area-inset-left));"
 		>
 			<div class="relative">
@@ -135,6 +160,9 @@ import qrCode from '../images/qr-code.png';
 				<div
 					id="donation-panel"
 					class="absolute bottom-full left-0 mb-3 w-[min(18rem,calc(100vw-2rem))] rounded-2xl border border-stone-200 bg-white/95 p-3 shadow-2xl backdrop-blur-sm opacity-0 translate-y-2 scale-95 pointer-events-none transition-all duration-200 ease-out"
+					role="dialog"
+					aria-modal="false"
+					aria-label="Donacijski obrazec"
 				>
 					<button
 						id="donation-close"
@@ -165,9 +193,11 @@ import qrCode from '../images/qr-code.png';
 
 					<p class="mb-2 text-xs leading-5 text-gray-700">
 						Poiščite nas pod davčno številko
-						<b
-							id="copy-tax-number"
-							class="inline-flex items-center gap-1 text-sm text-red-700"
+						<!-- FIX: <b> replaced with <button>; unique id "copy-tax-number-mobile"; cursor-pointer added -->
+						<button
+							id="copy-tax-number-mobile"
+							type="button"
+							class="inline-flex items-center gap-1 text-sm font-bold text-red-700 cursor-pointer bg-transparent border-0 p-0"
 							title="Klikni za kopiranje"
 						>
 							19599056
@@ -184,15 +214,18 @@ import qrCode from '../images/qr-code.png';
 									d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
 								></path>
 							</svg>
-						</b>
-						<span id="copy-feedback" class="ml-1 hidden text-xs text-green-600"
-							>✓ Kopirano!</span
+						</button>
+						<!-- FIX: unique id "copy-feedback-mobile" -->
+						<span
+							id="copy-feedback-mobile"
+							class="ml-1 hidden text-xs text-green-600">✓ Kopirano!</span
 						>
 					</p>
 
 					<a
 						href="https://edavki.durs.si/edavkiportal/OpenPortal/CommonPages/Opdynp/PageD.aspx?category=namenitev_dela_dohodnine_fo"
 						target="_blank"
+						rel="noopener noreferrer"
 						class="block rounded-xl border border-stone-200 bg-stone-50 p-2 transition-transform active:scale-[0.99]"
 					>
 						<div class="mx-auto flex w-32 justify-center">
@@ -208,66 +241,108 @@ import qrCode from '../images/qr-code.png';
 	</section>
 
 	<script>
-		const donationToggle = document.getElementById('donation-toggle');
-		const donationPanel = document.getElementById('donation-panel');
-		const donationClose = document.getElementById('donation-close');
+		function initPage() {
+			const donationToggle = document.getElementById('donation-toggle');
+			const donationPanel = document.getElementById('donation-panel');
+			const donationClose = document.getElementById('donation-close');
 
-		const openDonationPanel = () => {
-			donationToggle?.setAttribute('aria-expanded', 'true');
-			donationPanel?.classList.remove(
-				'opacity-0',
-				'translate-y-2',
-				'scale-95',
-				'pointer-events-none',
-			);
-			donationPanel?.classList.add(
-				'opacity-100',
-				'translate-y-0',
-				'scale-100',
-				'pointer-events-auto',
-			);
-		};
+			const openDonationPanel = () => {
+				donationToggle?.setAttribute('aria-expanded', 'true');
+				donationPanel?.classList.remove(
+					'opacity-0',
+					'translate-y-2',
+					'scale-95',
+					'pointer-events-none',
+				);
+				donationPanel?.classList.add(
+					'opacity-100',
+					'translate-y-0',
+					'scale-100',
+					'pointer-events-auto',
+				);
+			};
 
-		const closeDonationPanel = () => {
-			donationToggle?.setAttribute('aria-expanded', 'false');
-			donationPanel?.classList.add(
-				'opacity-0',
-				'translate-y-2',
-				'scale-95',
-				'pointer-events-none',
-			);
-			donationPanel?.classList.remove(
-				'opacity-100',
-				'translate-y-0',
-				'scale-100',
-				'pointer-events-auto',
-			);
-		};
+			const closeDonationPanel = () => {
+				donationToggle?.setAttribute('aria-expanded', 'false');
+				donationPanel?.classList.add(
+					'opacity-0',
+					'translate-y-2',
+					'scale-95',
+					'pointer-events-none',
+				);
+				donationPanel?.classList.remove(
+					'opacity-100',
+					'translate-y-0',
+					'scale-100',
+					'pointer-events-auto',
+				);
+			};
 
-		donationToggle?.addEventListener('click', () => {
-			const isOpen = donationToggle.getAttribute('aria-expanded') === 'true';
-			if (isOpen) {
-				closeDonationPanel();
-			} else {
-				openDonationPanel();
-			}
-		});
+			donationToggle?.addEventListener('click', () => {
+				const isOpen = donationToggle.getAttribute('aria-expanded') === 'true';
+				isOpen ? closeDonationPanel() : openDonationPanel();
+			});
 
-		donationClose?.addEventListener('click', closeDonationPanel);
+			donationClose?.addEventListener('click', closeDonationPanel);
 
-		document
-			.getElementById('copy-tax-number')
-			?.addEventListener('click', async () => {
+			// FIX: close panel when clicking outside
+			document.addEventListener('click', (e) => {
+				const panel = document.getElementById('donation-panel');
+				const toggle = document.getElementById('donation-toggle');
+				if (
+					panel &&
+					toggle &&
+					!panel.contains(e.target as Node) &&
+					!toggle.contains(e.target as Node) &&
+					toggle.getAttribute('aria-expanded') === 'true'
+				) {
+					closeDonationPanel();
+				}
+			});
+
+			// FIX: separate copy handlers for desktop and mobile with their own feedback spans
+			const copyTaxNumber = async (feedbackId: string) => {
 				try {
 					await navigator.clipboard.writeText('19599056');
-					const feedback = document.getElementById('copy-feedback');
+					const feedback = document.getElementById(feedbackId);
 					feedback?.classList.remove('hidden');
-					setTimeout(() => {
-						feedback?.classList.add('hidden');
-					}, 2000);
+					setTimeout(() => feedback?.classList.add('hidden'), 2000);
 				} catch (err) {
 					console.error('Failed to copy:', err);
 				}
-			});
+			};
+
+			document
+				.getElementById('copy-tax-number-desktop')
+				?.addEventListener('click', () =>
+					copyTaxNumber('copy-feedback-desktop'),
+				);
+
+			document
+				.getElementById('copy-tax-number-mobile')
+				?.addEventListener('click', () =>
+					copyTaxNumber('copy-feedback-mobile'),
+				);
+		}
+
+		// FIX: supports Astro view transitions if ever enabled
+		document.addEventListener('astro:page-load', initPage);
+		initPage();
 	</script>
+
+	<style>
+		@keyframes fade-in {
+			from {
+				opacity: 0;
+				transform: translateY(12px);
+			}
+			to {
+				opacity: 1;
+				transform: translateY(0);
+			}
+		}
+		.animate-fade-in {
+			animation: fade-in 0.8s ease-out both;
+		}
+	</style>
 </Layout>
