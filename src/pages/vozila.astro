@@ -5,11 +5,9 @@ import gvc1 from '../images/vozila/gvc-1.jpg';
 import ac2460 from '../images/vozila/ac-2470.jpg';
 
 const badgeColors = {
-  Poveljevanje: 'bg-blue-600',
-  Požari: 'bg-green-700',
+  "Gozdni požari": 'bg-green-700',
   Logistika: 'bg-stone-600',
-  Gašenje: 'bg-red-600',
-  Cisterna: 'bg-orange-600',
+  Cisterna: 'bg-red-600',
   Avtolestev: 'bg-sky-600',
   'Tehnične int.': 'bg-yellow-500',
 };
@@ -22,7 +20,7 @@ const vehicles = [
     fullName: 'Manjše poveljniško vozilo',
     year: '1900',
     image: gvc1,
-    badge: 'Poveljevanje',
+    badge: 'Logistika',
     specs: [
       { label: 'Znamka / Model', value: 'Mazda BT-50' },
       { label: 'Pogon', value: '4×4' },
@@ -37,7 +35,7 @@ const vehicles = [
     fullName: 'Manjše gasilsko vozilo za gašenje gozdnih požarov',
     year: '1900',
     image: gvc1,
-    badge: 'Požari',
+    badge: 'Gozdni požari',
     specs: [
       { label: 'Znamka / Model', value: 'Mitsubishi L200' },
       { label: 'Pogon', value: '4×4' },
@@ -69,7 +67,7 @@ const vehicles = [
     badge: 'Logistika',
     specs: [
       { label: 'Znamka / Model', value: 'Renault Master' },
-      { label: 'Posadka', value: '1+1' },
+      { label: 'Posadka', value: '1+2' },
     ],
     description: 'Logistično vozilo za prevoz opreme, materiala in podporo pri dolgotrajnih intervencijah. Uporablja se tudi za intervencije z nevarnimi snovmi.',
   },
@@ -80,7 +78,7 @@ const vehicles = [
     fullName: 'Gasilsko Vozilo s Cisterno',
     year: '1900',
     image: gvc1,
-    badge: 'Gašenje',
+    badge: 'Cisterna',
     specs: [
       { label: 'Znamka / Model', value: 'Scania P 360 XT' },
       { label: 'Kapaciteta vode', value: 'XXXX L' },
@@ -96,7 +94,7 @@ const vehicles = [
     fullName: 'Gasilsko Vozilo s Cisterno',
     year: '1900',
     image: gvc1,
-    badge: 'Gašenje',
+    badge: 'Cisterna',
     specs: [
       { label: 'Znamka / Model', value: 'Mercedes-Benz 1124' },
       { label: 'Kapaciteta vode', value: 'XXXX L' },
@@ -117,7 +115,7 @@ const vehicles = [
       { label: 'Znamka / Model', value: 'Scania P 360 XT' },
       { label: 'Kapaciteta vode', value: 'XXXX L' },
       { label: 'Črpalka', value: 'XXXX L/min' },
-      { label: 'Posadka', value: '1+3' },
+      { label: 'Posadka', value: '1+2' },
     ],
     description: 'Velika avtocisterna za zagotavljanje zalog vode na območjih brez hidrantnega omrežja.',
   },
@@ -147,7 +145,7 @@ const vehicles = [
     badge: 'Tehnične int.',
     specs: [
       { label: 'Znamka / Model', value: 'Mercedes-Benz Sprinter 519 CDI' },
-      { label: 'Posadka', value: '1+3' },
+      { label: 'Posadka', value: '1+4' },
     ],
     description: 'Specializirano vozilo za tehnične intervencije, predvsem prometne nesreče.',
   },

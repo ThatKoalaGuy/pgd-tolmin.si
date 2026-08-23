@@ -15,7 +15,6 @@ const navItemsLeft: NavItem[] = [
 		children: [
 			{ name: 'O društvu', href: '/drustvo' },
 			{ name: 'Vozila', href: '/vozila' },
-			{ name: 'Operativa', href: '/operativa' },
 		],
 	},
 	{ name: 'Postani gasilec', href: '/postani-gasilec' },
@@ -49,7 +48,6 @@ const isActive = (href?: string) => {
 	<div class="absolute bottom-0 left-0 right-0 h-[2px] bg-red-600 z-10"></div>
 
 	<div class="max-w-7xl mx-auto px-4 relative z-10">
-
 		<!-- Mobile header -->
 		<div class="grid grid-cols-3 md:hidden items-center h-16">
 			<div></div>
@@ -65,147 +63,200 @@ const isActive = (href?: string) => {
 				aria-expanded="false"
 				aria-label="Odpri meni"
 			>
-				<svg id="icon-menu" class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-					<path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+				<svg
+					id="icon-menu"
+					class="h-6 w-6"
+					viewBox="0 0 24 24"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="2"
+				>
+					<path
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						d="M4 6h16M4 12h16M4 18h16"></path>
 				</svg>
-				<svg id="icon-close" class="h-6 w-6 hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-					<path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+				<svg
+					id="icon-close"
+					class="h-6 w-6 hidden"
+					viewBox="0 0 24 24"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="2"
+				>
+					<path
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						d="M6 18L18 6M6 6l12 12"></path>
 				</svg>
 			</button>
 		</div>
 
 		<!-- Desktop navbar -->
-		<div class="hidden md:flex items-center justify-between h-16 flex-nowrap gap-8">
-
+		<div
+			class="hidden md:flex items-center justify-between h-16 flex-nowrap gap-8"
+		>
 			<!-- Left nav -->
-			<ul class="flex flex-nowrap items-center gap-6 text-sm font-semibold tracking-wide uppercase whitespace-nowrap">
-				{navItemsLeft.map((item, idx) => (
-					<li class={item.children ? 'relative group' : ''}>
-						{item.children ? (
-							/* FIX: button instead of span for keyboard accessibility */
-							<button
-								type="button"
-								class="inline-flex items-center gap-1 transition-colors duration-200 cursor-pointer focus:outline-none focus:ring-2 focus:ring-red-600 rounded nav-link"
-								aria-haspopup="true"
-								aria-expanded="false"
-								aria-controls={`dropdown-${idx}`}
-							>
-								{item.name}
-								<svg class="h-3.5 w-3.5 transition-transform duration-200 group-hover:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-									<path stroke-linecap="round" stroke-linejoin="round" d="M6 9l6 6 6-6" />
-								</svg>
-							</button>
-						) : (
-							<a
-								href={item.href}
-								class:list={[
-									'relative py-1 transition-colors duration-200 nav-link focus:outline-none focus:ring-2 focus:ring-red-600 rounded',
-									'after:absolute after:bottom-0 after:left-0 after:h-[2px] after:bg-red-600 after:transition-all after:duration-200',
-									isActive(item.href)
-										? 'text-red-600 after:w-full'
-										: 'after:w-0 hover:after:w-full'
-								]}
-							>
-								{item.name}
-							</a>
-						)}
+			<ul
+				class="flex flex-nowrap items-center gap-6 text-sm font-semibold tracking-wide uppercase whitespace-nowrap"
+			>
+				{
+					navItemsLeft.map((item, idx) => (
+						<li class={item.children ? 'relative group' : ''}>
+							{item.children ? (
+								/* FIX: button instead of span for keyboard accessibility */
+								<button
+									type="button"
+									class="inline-flex items-center gap-1 transition-colors duration-200 cursor-pointer focus:outline-none focus:ring-2 focus:ring-red-600 rounded nav-link"
+									aria-haspopup="true"
+									aria-expanded="false"
+									aria-controls={`dropdown-${idx}`}
+								>
+									{item.name}
+									<svg
+										class="h-3.5 w-3.5 transition-transform duration-200 group-hover:rotate-180"
+										viewBox="0 0 24 24"
+										fill="none"
+										stroke="currentColor"
+										stroke-width="2.5"
+									>
+										<path
+											stroke-linecap="round"
+											stroke-linejoin="round"
+											d="M6 9l6 6 6-6"
+										/>
+									</svg>
+								</button>
+							) : (
+								<a
+									href={item.href}
+									class:list={[
+										'relative py-1 transition-colors duration-200 nav-link focus:outline-none focus:ring-2 focus:ring-red-600 rounded',
+										'after:absolute after:bottom-0 after:left-0 after:h-[2px] after:bg-red-600 after:transition-all after:duration-200',
+										isActive(item.href)
+											? 'text-red-600 after:w-full'
+											: 'after:w-0 hover:after:w-full',
+									]}
+								>
+									{item.name}
+								</a>
+							)}
 
-						{item.children && (
-							<div
-								id={`dropdown-${idx}`}
-								class="absolute left-0 top-full pt-3 z-50 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 ease-out translate-y-1 group-hover:translate-y-0 scale-95 group-hover:scale-100"
-								role="menu"
-							>
-								<ul class="w-52 bg-white border-t-2 border-red-600 rounded-b-lg shadow-xl py-1">
-									{item.children.map((child) => (
-										<li role="none">
-											<a
-												href={child.href}
-												role="menuitem"
-												class:list={[
-													'block px-4 py-2.5 text-sm transition-colors duration-150',
-													isActive(child.href)
-														? 'text-red-600 bg-red-50 font-semibold'
-														: 'text-stone-700 hover:text-red-600 hover:bg-stone-50'
-												]}
-											>
-												{child.name}
-											</a>
-										</li>
-									))}
-								</ul>
-							</div>
-						)}
-					</li>
-				))}
+							{item.children && (
+								<div
+									id={`dropdown-${idx}`}
+									class="absolute left-0 top-full pt-3 z-50 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 ease-out translate-y-1 group-hover:translate-y-0 scale-95 group-hover:scale-100"
+									role="menu"
+								>
+									<ul class="w-52 bg-white border-t-2 border-red-600 rounded-b-lg shadow-xl py-1">
+										{item.children.map((child) => (
+											<li role="none">
+												<a
+													href={child.href}
+													role="menuitem"
+													class:list={[
+														'block px-4 py-2.5 text-sm transition-colors duration-150',
+														isActive(child.href)
+															? 'text-red-600 bg-red-50 font-semibold'
+															: 'text-stone-700 hover:text-red-600 hover:bg-stone-50',
+													]}
+												>
+													{child.name}
+												</a>
+											</li>
+										))}
+									</ul>
+								</div>
+							)}
+						</li>
+					))
+				}
 			</ul>
 
 			<!-- Center logo -->
-			<a href="/" aria-label="Domov" class="shrink-0 flex justify-center focus:outline-none focus:ring-2 focus:ring-red-600 rounded">
+			<a
+				href="/"
+				aria-label="Domov"
+				class="shrink-0 flex justify-center focus:outline-none focus:ring-2 focus:ring-red-600 rounded"
+			>
 				<!-- FIX: reduced from h-20 (fills full bar) to h-12 with breathing room -->
 				<img src={logo.src} alt="PGD Tolmin logo" class="h-12 w-auto" />
 			</a>
 
 			<!-- Right nav -->
-			<ul class="flex flex-nowrap items-center gap-6 text-sm font-semibold tracking-wide uppercase whitespace-nowrap">
-				{navItemsRight.map((item, idx) => (
-					<li class={item.children ? 'relative group' : ''}>
-						{item.children ? (
-							<button
-								type="button"
-								class="inline-flex items-center gap-1 transition-colors duration-200 cursor-pointer focus:outline-none focus:ring-2 focus:ring-red-600 rounded nav-link"
-								aria-haspopup="true"
-								aria-expanded="false"
-								aria-controls={`dropdown-right-${idx}`}
-							>
-								{item.name}
-								<svg class="h-3.5 w-3.5 transition-transform duration-200 group-hover:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-									<path stroke-linecap="round" stroke-linejoin="round" d="M6 9l6 6 6-6" />
-								</svg>
-							</button>
-						) : (
-							<a
-								href={item.href}
-								class:list={[
-									'relative py-1 transition-colors duration-200 nav-link focus:outline-none focus:ring-2 focus:ring-red-600 rounded',
-									'after:absolute after:bottom-0 after:left-0 after:h-[2px] after:bg-red-600 after:transition-all after:duration-200',
-									isActive(item.href)
-										? 'text-red-600 after:w-full'
-										: 'after:w-0 hover:after:w-full'
-								]}
-							>
-								{item.name}
-							</a>
-						)}
+			<ul
+				class="flex flex-nowrap items-center gap-6 text-sm font-semibold tracking-wide uppercase whitespace-nowrap"
+			>
+				{
+					navItemsRight.map((item, idx) => (
+						<li class={item.children ? 'relative group' : ''}>
+							{item.children ? (
+								<button
+									type="button"
+									class="inline-flex items-center gap-1 transition-colors duration-200 cursor-pointer focus:outline-none focus:ring-2 focus:ring-red-600 rounded nav-link"
+									aria-haspopup="true"
+									aria-expanded="false"
+									aria-controls={`dropdown-right-${idx}`}
+								>
+									{item.name}
+									<svg
+										class="h-3.5 w-3.5 transition-transform duration-200 group-hover:rotate-180"
+										viewBox="0 0 24 24"
+										fill="none"
+										stroke="currentColor"
+										stroke-width="2.5"
+									>
+										<path
+											stroke-linecap="round"
+											stroke-linejoin="round"
+											d="M6 9l6 6 6-6"
+										/>
+									</svg>
+								</button>
+							) : (
+								<a
+									href={item.href}
+									class:list={[
+										'relative py-1 transition-colors duration-200 nav-link focus:outline-none focus:ring-2 focus:ring-red-600 rounded',
+										'after:absolute after:bottom-0 after:left-0 after:h-[2px] after:bg-red-600 after:transition-all after:duration-200',
+										isActive(item.href)
+											? 'text-red-600 after:w-full'
+											: 'after:w-0 hover:after:w-full',
+									]}
+								>
+									{item.name}
+								</a>
+							)}
 
-						{item.children && (
-							<div
-								id={`dropdown-right-${idx}`}
-								class="absolute right-0 top-full pt-3 z-50 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 ease-out translate-y-1 group-hover:translate-y-0 scale-95 group-hover:scale-100"
-								role="menu"
-							>
-								<ul class="w-52 bg-white border-t-2 border-red-600 rounded-b-lg shadow-xl py-1">
-									{item.children.map((child) => (
-										<li role="none">
-											<a
-												href={child.href}
-												role="menuitem"
-												class:list={[
-													'block px-4 py-2.5 text-sm transition-colors duration-150',
-													isActive(child.href)
-														? 'text-red-600 bg-red-50 font-semibold'
-														: 'text-stone-700 hover:text-red-600 hover:bg-stone-50'
-												]}
-											>
-												{child.name}
-											</a>
-										</li>
-									))}
-								</ul>
-							</div>
-						)}
-					</li>
-				))}
+							{item.children && (
+								<div
+									id={`dropdown-right-${idx}`}
+									class="absolute right-0 top-full pt-3 z-50 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 ease-out translate-y-1 group-hover:translate-y-0 scale-95 group-hover:scale-100"
+									role="menu"
+								>
+									<ul class="w-52 bg-white border-t-2 border-red-600 rounded-b-lg shadow-xl py-1">
+										{item.children.map((child) => (
+											<li role="none">
+												<a
+													href={child.href}
+													role="menuitem"
+													class:list={[
+														'block px-4 py-2.5 text-sm transition-colors duration-150',
+														isActive(child.href)
+															? 'text-red-600 bg-red-50 font-semibold'
+															: 'text-stone-700 hover:text-red-600 hover:bg-stone-50',
+													]}
+												>
+													{child.name}
+												</a>
+											</li>
+										))}
+									</ul>
+								</div>
+							)}
+						</li>
+					))
+				}
 			</ul>
 		</div>
 	</div>
@@ -217,62 +268,74 @@ const isActive = (href?: string) => {
 		aria-hidden="true"
 		class="md:hidden overflow-hidden max-h-0 transition-all duration-300 ease-out pointer-events-none"
 	>
-		<div id="mobile-menu-inner" class="px-4 pt-2 pb-5 border-t border-stone-200 space-y-1">
-			{allItems.map((item, idx) => (
-				<div>
-					{item.children ? (
-						<>
-							<button
-								type="button"
-								class="w-full flex items-center justify-between py-2.5 px-2 text-sm font-semibold tracking-wide uppercase transition-colors focus:outline-none focus:ring-2 focus:ring-red-600 rounded nav-link"
-								aria-controls={`mobile-submenu-${idx}`}
-								aria-expanded="false"
-							>
-								<span>{item.name}</span>
-								<svg
-									data-chevron={`mobile-submenu-${idx}`}
-									class="h-4 w-4 transition-transform duration-200"
-									viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+		<div
+			id="mobile-menu-inner"
+			class="px-4 pt-2 pb-5 border-t border-stone-200 space-y-1"
+		>
+			{
+				allItems.map((item, idx) => (
+					<div>
+						{item.children ? (
+							<>
+								<button
+									type="button"
+									class="w-full flex items-center justify-between py-2.5 px-2 text-sm font-semibold tracking-wide uppercase transition-colors focus:outline-none focus:ring-2 focus:ring-red-600 rounded nav-link"
+									aria-controls={`mobile-submenu-${idx}`}
+									aria-expanded="false"
 								>
-									<path stroke-linecap="round" stroke-linejoin="round" d="M6 9l6 6 6-6" />
-								</svg>
-							</button>
-							<ul
-								id={`mobile-submenu-${idx}`}
-								class="pl-3 space-y-0.5 overflow-hidden transition-all duration-300 ease-out"
-								style="max-height: 0px;"
-								aria-hidden="true"
+									<span>{item.name}</span>
+									<svg
+										data-chevron={`mobile-submenu-${idx}`}
+										class="h-4 w-4 transition-transform duration-200"
+										viewBox="0 0 24 24"
+										fill="none"
+										stroke="currentColor"
+										stroke-width="2"
+									>
+										<path
+											stroke-linecap="round"
+											stroke-linejoin="round"
+											d="M6 9l6 6 6-6"
+										/>
+									</svg>
+								</button>
+								<ul
+									id={`mobile-submenu-${idx}`}
+									class="pl-3 space-y-0.5 overflow-hidden transition-all duration-300 ease-out"
+									style="max-height: 0px;"
+									aria-hidden="true"
+								>
+									{item.children.map((child) => (
+										<li>
+											<a
+												href={child.href}
+												class:list={[
+													'block py-2 px-2 text-sm rounded transition-colors',
+													isActive(child.href)
+														? 'text-red-600 font-semibold'
+														: 'text-stone-600 hover:text-red-600',
+												]}
+											>
+												{child.name}
+											</a>
+										</li>
+									))}
+								</ul>
+							</>
+						) : (
+							<a
+								href={item.href}
+								class:list={[
+									'block py-2.5 px-2 text-sm font-semibold tracking-wide uppercase rounded transition-colors nav-link',
+									isActive(item.href) ? 'text-red-600' : 'hover:text-red-600',
+								]}
 							>
-								{item.children.map((child) => (
-									<li>
-										<a
-											href={child.href}
-											class:list={[
-												'block py-2 px-2 text-sm rounded transition-colors',
-												isActive(child.href)
-													? 'text-red-600 font-semibold'
-													: 'text-stone-600 hover:text-red-600'
-											]}
-										>
-											{child.name}
-										</a>
-									</li>
-								))}
-							</ul>
-						</>
-					) : (
-						<a
-							href={item.href}
-							class:list={[
-								'block py-2.5 px-2 text-sm font-semibold tracking-wide uppercase rounded transition-colors nav-link',
-								isActive(item.href) ? 'text-red-600' : 'hover:text-red-600'
-							]}
-						>
-							{item.name}
-						</a>
-					)}
-				</div>
-			))}
+								{item.name}
+							</a>
+						)}
+					</div>
+				))
+			}
 		</div>
 	</div>
 </nav>
@@ -293,17 +356,20 @@ const isActive = (href?: string) => {
 
 	const setSolid = () => {
 		navbar.style.backgroundColor = '#fafaf9';
-		navbar.style.boxShadow = '0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)';
-		navbar.querySelectorAll('.nav-link').forEach(el => {
+		navbar.style.backdropFilter = 'none';
+		navbar.style.boxShadow =
+			'0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)';
+		navbar.querySelectorAll('.nav-link').forEach((el) => {
 			el.classList.add('text-stone-800');
 			el.classList.remove('text-white');
 		});
 	};
 
 	const setTransparent = () => {
-		navbar.style.backgroundColor = 'transparent';
+		navbar.style.backgroundColor = 'rgb(0 0 0 / 0.07)';
+		navbar.style.backdropFilter = 'blur(4px)';
 		navbar.style.boxShadow = 'none';
-		navbar.querySelectorAll('.nav-link').forEach(el => {
+		navbar.querySelectorAll('.nav-link').forEach((el) => {
 			el.classList.add('text-white');
 			el.classList.remove('text-stone-800');
 		});
@@ -408,6 +474,8 @@ const isActive = (href?: string) => {
 	   This prevents white-text-on-white-background flash on normal pages. */
 	#navbar {
 		background-color: #fafaf9;
-		box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+		box-shadow:
+			0 4px 6px -1px rgb(0 0 0 / 0.1),
+			0 2px 4px -2px rgb(0 0 0 / 0.1);
 	}
 </style>

@@ -18,22 +18,7 @@ const storitve = [
 		title: 'Pomoč z dvigalom',
 		description:
 			'Z našim dvigalom pomagamo pri delih na višini, rezanju dreves, postavljanju objektov in drugih opravilih, kjer je potrebna strojna pomoč z usposobljeno posadko.',
-		items: [
-			'Doseg do 20 m višine',
-			'Usposobljena in certificirana posadka',
-			'Primerno za rezanje dreves, fasaderska dela, montaže',
-		],
-	},
-	{
-		id: 'druge',
-		title: 'Druge storitve',
-		description:
-			'Poleg zgoraj navedenih nudimo tudi pomoč pri različnih opravilih glede na razpoložljivost ekipe in opreme. Stopite v stik in skupaj bomo našli rešitev.',
-		items: [
-			'Črpanje vode pri poplavah',
-			'Pomoč pri organizaciji prireditev',
-			'Varovanje prireditev',
-		],
+		items: [],
 	},
 ];
 ---
@@ -94,27 +79,12 @@ const storitve = [
 						style={`animation-delay: ${i * 120}ms`}
 					>
 						<div class="h-1 w-full bg-gradient-to-r from-red-600 to-red-400 opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
-						<div class="p-8 md:grid md:grid-cols-5 md:gap-12 items-start">
-							<div class="md:col-span-3">
+						<div class="p-8">
+							<div>
 								<h2 class="text-2xl font-black text-stone-900 tracking-tight mb-3 group-hover:text-red-600 transition-colors">
 									{s.title}
 								</h2>
 								<p class="text-stone-600 leading-relaxed">{s.description}</p>
-							</div>
-							<div class="mt-6 md:mt-0 md:col-span-2">
-								<p class="text-xs font-bold tracking-[0.2em] uppercase text-stone-400 mb-4">
-									Vključuje
-								</p>
-								<ul class="space-y-3">
-									{s.items.map((item) => (
-										<li class="flex items-start gap-3">
-											<span class="mt-1.5 h-1.5 w-1.5 rounded-full bg-red-600 shrink-0" />
-											<span class="text-stone-600 text-sm leading-relaxed">
-												{item}
-											</span>
-										</li>
-									))}
-								</ul>
 							</div>
 						</div>
 					</section>
@@ -128,8 +98,7 @@ const storitve = [
 				<div>
 					<p class="text-white font-black text-xl">Kontaktirajte nas</p>
 					<p class="text-stone-400 text-sm mt-1">
-						Storitve izvajamo glede na razpoložljivost. Cene se določijo ob
-						povpraševanju.
+						Storitve izvajamo glede na razpoložljivost.
 					</p>
 				</div>
 				<a

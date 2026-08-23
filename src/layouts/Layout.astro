@@ -2,6 +2,7 @@
 import '../styles/global.css';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
+import FooterHome from '../components/FooterHome.astro';
 
 interface Props {
 	title: string;
@@ -10,6 +11,7 @@ interface Props {
 	lang?: string;
 	fullBleed?: boolean;
 	hideFooter?: boolean;
+	footerVariant?: 'default' | 'home';
 	bodyClass?: string;
 	viewportFit?: boolean;
 }
@@ -20,7 +22,8 @@ const {
 	ogImage = '/og-default.jpg',
 	lang = 'sl',
 	fullBleed = false,
-	hideFooter = true,
+	hideFooter = false,
+	footerVariant = 'default',
 	bodyClass = '',
 	viewportFit = false,
 } = Astro.props;
@@ -87,10 +90,15 @@ const ogImageURL = new URL(ogImage, siteURL);
 		<!-- Page-specific head content (scripts, structured data, etc.) -->
 		<slot name="head" />
 	</head>
-	<body class:list={['m-0', fullBleed ? 'overflow-x-hidden' : '', bodyClass]}>
+	<body
+		class:list={[
+			'm-0 min-h-dvh flex flex-col',
+			fullBleed ? 'overflow-x-hidden' : '',
+			bodyClass,
+		]}
+	>
 		{
 			fullBleed ? (
-				<!-- FIX: fixed instead of absolute so navbar stays visible on scroll -->
 				<div class="fixed inset-x-0 top-0 z-50">
 					<Navbar />
 				</div>
@@ -98,9 +106,9 @@ const ogImageURL = new URL(ogImage, siteURL);
 				<Navbar />
 			)
 		}
-		<main class:list={[fullBleed ? 'p-0' : 'pt-16']}>
+		<main class:list={['flex-1', fullBleed ? 'p-0' : 'pt-16']}>
 			<slot />
 		</main>
-		{!hideFooter && <Footer />}
+		{!hideFooter && (footerVariant === 'home' ? <FooterHome /> : <Footer />)}
 	</body>
 </html>

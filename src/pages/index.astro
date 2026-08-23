@@ -9,6 +9,7 @@ import qrCode from '../images/qr-code.png';
 	title="PGD Tolmin"
 	fullBleed={true}
 	hideFooter={false}
+	footerVariant="home"
 	bodyClass=""
 	viewportFit={true}
 >
@@ -29,7 +30,14 @@ import qrCode from '../images/qr-code.png';
 		<div
 			class="absolute inset-0 z-40 flex items-center justify-center mb-24 sm:mb-0"
 		>
-			<div class="text-center px-4 sm:px-6 animate-fade-in">
+			<div
+				class="relative isolate px-4 py-6 text-center sm:px-8 animate-fade-in"
+			>
+				<div
+					class="absolute -inset-x-8 -inset-y-6 -z-10 rounded-2xl bg-black/10 backdrop-blur-[2px]"
+					aria-hidden="true"
+				>
+				</div>
 				<h1
 					class="m-0 text-white text-4xl sm:text-6xl md:text-8xl font-bold drop-shadow-lg"
 				>
@@ -38,8 +46,22 @@ import qrCode from '../images/qr-code.png';
 				<h2
 					class="m-0 mt-2 sm:mt-3 text-white text-lg sm:text-3xl md:text-4xl drop-shadow"
 				>
-					Tukaj - za vas.
+					Gasilska enota širšega pomena v občini Tolmin.
 				</h2>
+				<div class="mt-6 flex flex-wrap justify-center gap-3">
+					<a
+						href="/drustvo"
+						class="rounded-md border border-white/70 bg-black/20 px-4 py-2 text-sm font-semibold text-white backdrop-blur-sm transition-colors hover:bg-white hover:text-stone-900"
+					>
+						O društvu
+					</a>
+					<a
+						href="/kontakt"
+						class="rounded-md bg-red-600 px-4 py-2 text-sm font-semibold text-white shadow-lg transition-colors hover:bg-red-700"
+					>
+						Kontakt
+					</a>
+				</div>
 			</div>
 		</div>
 

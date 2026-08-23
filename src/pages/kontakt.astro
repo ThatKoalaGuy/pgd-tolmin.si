@@ -4,7 +4,7 @@ import { Image } from 'astro:assets';
 import sos112 from '../images/sos112.png';
 ---
 
-<Layout title="Kontakt | PGD Tolmin">
+<Layout title="Kontakt | PGD Tolmin" hideFooter={false}>
 	<section class="relative overflow-hidden bg-stone-900">
 		<div class="absolute inset-0 pointer-events-none">
 			<div
@@ -144,12 +144,13 @@ import sos112 from '../images/sos112.png';
 								>
 							</p>
 							<p class="m-0">
-								E-pošta:
+								E-pošta:&nbsp;
 								<a
-									class="block break-all font-semibold text-red-700 hover:text-red-600 transition-colors"
-									href="mailto:pgdtolmin@gmail.com"
+									class="inline whitespace-nowrap font-semibold text-red-700 hover:text-red-600 transition-colors"
+									style="white-space: nowrap"
+									href="mailto:pgd.tolmin@gmail.com"
 								>
-									pgdtolmin@gmail.com
+									pgd.tolmin@gmail.com
 								</a>
 							</p>
 							<p class="m-0">Uradne ure: Vsak torek od 20 dalje</p>
