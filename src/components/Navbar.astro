@@ -45,7 +45,7 @@ const isActive = (href?: string) => {
 >
 	<!-- FIX: transparent-to-solid background handled by JS scroll state via data attribute -->
 	<!-- Bottom red accent line -->
-	<div class="absolute bottom-0 left-0 right-0 h-[2px] bg-red-600 z-10"></div>
+	<div class="absolute bottom-0 left-0 right-0 h-0.5 bg-red-600 z-10"></div>
 
 	<div class="max-w-7xl mx-auto px-4 relative z-10">
 		<!-- Mobile header -->
@@ -139,7 +139,7 @@ const isActive = (href?: string) => {
 									href={item.href}
 									class:list={[
 										'relative py-1 transition-colors duration-200 nav-link focus:outline-none focus:ring-2 focus:ring-red-600 rounded',
-										'after:absolute after:bottom-0 after:left-0 after:h-[2px] after:bg-red-600 after:transition-all after:duration-200',
+										'after:absolute after:bottom-0 after:left-0 after:h-0.5 after:bg-red-600 after:transition-all after:duration-200',
 										isActive(item.href)
 											? 'text-red-600 after:w-full'
 											: 'after:w-0 hover:after:w-full',
@@ -225,7 +225,7 @@ const isActive = (href?: string) => {
 									href={item.href}
 									class:list={[
 										'relative py-1 transition-colors duration-200 nav-link focus:outline-none focus:ring-2 focus:ring-red-600 rounded',
-										'after:absolute after:bottom-0 after:left-0 after:h-[2px] after:bg-red-600 after:transition-all after:duration-200',
+										'after:absolute after:bottom-0 after:left-0 after:h-0.5 after:bg-red-600 after:transition-all after:duration-200',
 										isActive(item.href)
 											? 'text-red-600 after:w-full'
 											: 'after:w-0 hover:after:w-full',
