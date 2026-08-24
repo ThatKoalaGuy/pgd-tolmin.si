@@ -58,7 +58,10 @@ const isActive = (href?: string) => {
 			<button
 				id="mobile-menu-button"
 				type="button"
-				class="justify-self-end inline-flex items-center justify-center p-2 rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-offset-1"
+				class:list={[
+					'justify-self-end inline-flex items-center justify-center p-2 rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-offset-1',
+					currentPath === '/' ? 'text-white' : 'text-stone-900',
+				]}
 				aria-controls="mobile-menu"
 				aria-expanded="false"
 				aria-label="Odpri meni"
@@ -102,7 +105,11 @@ const isActive = (href?: string) => {
 			>
 				{
 					navItemsLeft.map((item, idx) => (
-						<li class={item.children ? 'relative group' : ''}>
+						<li
+							class={
+								item.children ? 'relative group h-full flex items-center' : ''
+							}
+						>
 							{item.children ? (
 								/* FIX: button instead of span for keyboard accessibility */
 								<button
@@ -145,7 +152,7 @@ const isActive = (href?: string) => {
 							{item.children && (
 								<div
 									id={`dropdown-${idx}`}
-									class="absolute left-0 top-full pt-3 z-50 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 ease-out translate-y-1 group-hover:translate-y-0 scale-95 group-hover:scale-100"
+									class="absolute left-0 top-full pt-5 z-50 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 ease-out translate-y-1 group-hover:translate-y-0 scale-95 group-hover:scale-100"
 									role="menu"
 								>
 									<ul class="w-52 rounded-b-lg border-t-2 border-red-600 bg-stone-900/80 py-1 shadow-xl backdrop-blur-md">
@@ -266,7 +273,7 @@ const isActive = (href?: string) => {
 	<div
 		id="mobile-menu"
 		aria-hidden="true"
-		class="md:hidden overflow-hidden max-h-0 transition-all duration-300 ease-out pointer-events-none"
+		class="md:hidden overflow-hidden max-h-0 transition-all duration-300 ease-out"
 	>
 		<div
 			id="mobile-menu-inner"
@@ -313,7 +320,7 @@ const isActive = (href?: string) => {
 													'block py-2 px-2 text-sm rounded transition-colors',
 													isActive(child.href)
 														? 'text-red-600 font-semibold'
-														: 'text-stone-600 hover:text-red-600',
+														: 'text-white hover:text-red-600',
 												]}
 											>
 												{child.name}
@@ -409,7 +416,6 @@ const isActive = (href?: string) => {
 	const openMenu = () => {
 		btn.setAttribute('aria-expanded', 'true');
 		menu.setAttribute('aria-hidden', 'false');
-		menu.classList.add('pointer-events-auto');
 		menu.style.maxHeight = menuInner.scrollHeight + 'px';
 		iconMenu.classList.add('hidden');
 		iconClose.classList.remove('hidden');
@@ -418,7 +424,6 @@ const isActive = (href?: string) => {
 	const closeMenu = () => {
 		btn.setAttribute('aria-expanded', 'false');
 		menu.setAttribute('aria-hidden', 'true');
-		menu.classList.remove('pointer-events-auto');
 		menu.style.maxHeight = '0px';
 		iconMenu.classList.remove('hidden');
 		iconClose.classList.add('hidden');
